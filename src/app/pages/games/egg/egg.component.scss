@@ -1,0 +1,356 @@
+.content-scrollable {
+  overflow: hidden;
+  .rule-list {
+    .rule-tit {
+      color: #000;
+      &:before, &:after {
+        background: #000;
+      }
+    }
+    .rule-txt {
+      color: #000;
+      dt {
+        border: 1px solid #000;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.stage {
+  width: 100%;
+  perspective: 800px;
+  perspective-origin: 50% -1.4rem;
+  position: relative;
+  z-index: 80;
+  height: 100%;
+  overflow: auto;
+  .stage-bg {
+    min-height: 7rem;
+    overflow: hidden;
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+  .eggs-container {
+    position: absolute;
+    width: 2.8125rem;
+    height: 1.875rem;
+    top: 1.9rem;
+    left: 0.46875rem;
+    float: none;
+    padding: 0;
+    .cube {
+      width: 0;
+      height: 0;
+      border-radius: 15rem;
+      margin: auto;
+      position: absolute;
+      left: 50%;
+      top: .8rem;
+      z-index: 70;
+      transform-style: preserve-3d;
+      backface-visibility: visible;
+      transform: rotateX(90deg);
+      &.on {
+        animation: spin 10s infinite linear;
+        .egg {
+          animation: spinEgg 10s infinite linear;
+        }
+      }
+
+      .plane {
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: 60;
+        left: 50%;
+        top: 50%;
+        transform-style: preserve-3d;
+        backface-visibility: visible;
+        &.one {
+          transform: rotateZ(90deg) translateX(80px) rotateX(-90deg);
+          .egg-warp {
+            transform: rotateY(90deg);
+          }
+        }
+        &.two {
+          transform: rotateZ(210deg) translateX(80px) rotateX(-90deg);
+          .egg-warp {
+            transform: rotateY(210deg);
+          }
+        }
+        &.three {
+          transform: rotateZ(330deg) translateX(80px) rotateX(-90deg);
+          .egg-warp {
+            transform: rotateY(330deg);
+          }
+        }
+
+        .egg-warp {
+          width: 0;
+          height: 0;
+          position: absolute;
+          transform-style: preserve-3d;
+          backface-visibility: visible;
+          left: 0;
+          top: 0;
+          transform: rotateY(90deg);
+          z-index: 50;
+          .egg {
+            position: relative;
+            margin-left: -0.47rem;
+            display: block;
+            background-image: url(/assets/game/egg/egg.png);
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 100px;
+            background-size: 100% 100%;
+            &.clicked {
+              background-image: url(/assets/game/egg/egg2.png);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.game-info {
+  position: absolute;
+  width: 100%;
+  top: 4.5rem;
+  .rule-list {
+    margin-bottom: 0;
+    .rule-tit {
+      color: #fff;
+      &:before, &:after {
+        background: #fff;
+      }
+    }
+    .rule-txt {
+      color: #fff;
+      dt {
+        border: 1px solid #fff;
+        margin-top: 0;
+      }
+    }
+  }
+  .weui-panel {
+    background: none;
+    &:before, &:after {
+      display: none;
+    }
+    .weui-panel__hd {
+      color: #FFF;
+      &:after {
+        display: none;
+      }
+      .right {
+        color: #999;
+      }
+    }
+    .weui-media-box {
+      padding: 0;
+      min-height: 2rem;
+      box-sizing: border-box;
+      .new-content {
+        box-sizing: border-box;
+        padding: 0 0.15rem;
+        position: absolute;
+        width: 100%;
+      }
+      .weui-grids {
+        margin: 0 -0.03rem;
+        .weui-grid {
+          width: 25%;
+          .weui-grid__box {
+            background: #fff;
+            margin: 0.03rem;
+            padding: 0.1rem;
+            box-shadow: 0 3px 6px 0 rgba(198, 198, 198, 0.20);
+            border-radius: 4px;
+            .weui-grid__icon {
+              width: 0.6rem;
+              height: 0.6rem;
+            }
+            .weui-grid__label {
+              font-size: 0.1rem;
+              margin-top: 0.1rem;
+              color: #666;
+            }
+            .name {
+              font-size: 0.1rem;
+              color: #F26549;
+              text-align: center;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+              display: block;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.result-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .85);
+  color: #FFF;
+  z-index: 999;
+  display: none;
+  * {
+    font-size: 0.21rem;
+    line-height: 0.28rem;
+  }
+  .resule-light {
+    top: 0.1rem;
+    width: 3.75rem;
+    height: 3.75rem;
+    background-image: url(/assets/game/egg/light.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    animation: bgRotate 6s linear infinite;
+  }
+  .resule-gift-box {
+    margin-top: 0.28rem;
+    font-size: 0.16rem;
+    text-align: center;
+    .resule-gift-luck {
+      text-align: center;
+    }
+    .result-gift-img {
+      position: relative;
+      width: 1.40625rem;
+      height: 1.40625rem;
+      top: 0px;
+      left: 0px;
+      margin: 0.32rem auto;
+      float: none;
+      z-index: 100;
+      padding: 0px;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+    .resule-gift-rank {
+
+    }
+  }
+
+  &.bounceIn, &.bounceOut {
+    display: block;
+  }
+
+  &.flipInY, &.flipOutY {
+    display: block;
+  }
+}
+
+.failed-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .85);
+  color: #FFF;
+  z-index: 999;
+  .failed-img {
+    width: 2.7rem;
+    margin: 0 auto;
+    margin-top: 0.3rem;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .weui-msg__opr-area {
+    position: absolute;
+    bottom: 1.7rem;
+    width: 70%;
+    margin: 0 15%;
+  }
+}
+
+.audio {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.2rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  img {
+    display: block;
+    width: 100%;
+  }
+  &.playing {
+    animation: bgRotate 1.2s infinite linear;
+  }
+}
+
+.rule {
+  position: absolute;
+  top: 0.05rem;
+  right: 0.05rem;
+  width: 0.7rem;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+/*锤子样式*/
+.hammer {
+  z-index: 9999;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 0.4rem;
+  margin-left: -0.1rem;
+  margin-top: -0.2rem;
+
+  transform: rotate(-45deg);
+}
+
+@keyframes bgRotate {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes spinEgg {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateX(90deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(90deg) rotateZ(360deg);
+  }
+}

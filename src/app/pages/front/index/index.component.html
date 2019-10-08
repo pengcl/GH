@@ -1,0 +1,14 @@
+<app-navbar [title]="'...'"></app-navbar>
+
+<!--<app-tabbar></app-tabbar>-->
+
+<div class="weui-grids">
+  <div (click)="toCart($event)" *ngFor="let i of items" class="weui-grid">
+    <span class="weui-grid__box">
+      {{i}}
+    </span>
+  </div>
+</div>
+
+<!--transform: translate(50px, 100px)-->
+<span class="cart-ball" [ngClass]="{'show animated' : cartBallShow}" [ngStyle]="{'left':position.x + 'px','top':position.y + 'px'}"></span>

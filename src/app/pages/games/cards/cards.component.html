@@ -1,0 +1,178 @@
+<app-navbar [title]="'欢乐，翻翻翻'"></app-navbar>
+<div class="content-scrollable">
+  <div routerLink="/" class="home">
+    <img src="/assets/game/card/home.png">
+    <span>首页</span>
+  </div>
+  <div (click)="showOverlay()" class="role">
+    <img src="/assets/game/card/role.png">
+    <span>活动规则</span>
+  </div>
+  <div class="main img-box">
+    <img class="fadeInRightBig animated" src="/assets/game/card/main.png">
+  </div>
+  <div *ngIf="lotteries" class="card-container">
+    <div class="weui-grids">
+      <div (click)="turn(0,lotteries[0])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 0 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 0 || (turned && turnItem !== 0) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[0].pic}}">
+            <span class="stock">剩余：{{lotteries[0].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(1,lotteries[1])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 1 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 1 || (turned && turnItem !== 1) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[1].pic}}">
+            <span class="stock">剩余：{{lotteries[1].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(2,lotteries[2])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 2 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 2 || (turned && turnItem !== 2) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[2].pic}}">
+            <span class="stock">剩余：{{lotteries[2].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(3,lotteries[3])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 3 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 3 || (turned && turnItem !== 3) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[3].pic}}">
+            <span class="stock">剩余：{{lotteries[3].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="weui-grid">
+        <div class="item-box" style="padding: 0.04rem;">
+          <div class="item" style="width: 0.77rem;height: 0.77rem">
+            <img (click)="restart()" style="width: 0.77rem;height: 0.77rem" src="/assets/game/card/btn-{{turned ? 'restart' : 'fan'}}.png">
+            <span class="times">剩余<em> {{times}} </em>次</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(4,lotteries[4])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 4 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 4 || (turned && turnItem !== 4) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[4].pic}}">
+            <span class="stock">剩余：{{lotteries[4].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(5,lotteries[5])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 5 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 5 || (turned && turnItem !== 5) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[5].pic}}">
+            <span class="stock">剩余：{{lotteries[5].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(6,lotteries[6])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 6 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 6 || (turned && turnItem !== 6) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[6].pic}}">
+            <span class="stock">剩余：{{lotteries[6].stock}}</span>
+          </div>
+        </div>
+      </div>
+      <div (click)="turn(7,lotteries[7])" class="weui-grid">
+        <div class="item-box">
+          <img class="prize {{turnItem === 7 ? 'bounceIn animated' : ''}}" src="/assets/game/card/prize.png">
+          <div class="item {{turnItem === 7 || (turned && turnItem !== 7) ? 'turn' : ''}}">
+            <img class="back" src="/assets/game/card/back-side.png">
+            <img class="front" src="/wApi{{lotteries[7].pic}}">
+            <span class="stock">剩余：{{lotteries[7].stock}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-overlay>
+    <div class="content-scrollable">
+      <div class="rule-list">
+        <div class="rule-tit"><span>活动奖品</span></div>
+        <dl class="rule-txt">
+          <dt>1</dt>
+          <dd><p class="txt">iPhone XS 512G手机2台</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>2</dt>
+          <dd><p class="txt">中国黄金金条5克 5块</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>3</dt>
+          <dd><p class="txt">中国黄金金条2克 10块</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>4</dt>
+          <dd><p class="txt">软盒中南海香烟 20条</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>5</dt>
+          <dd><p class="txt">美的电磁炉 50台</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>6</dt>
+          <dd><p class="txt">小米烧水壶100个</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>7</dt>
+          <dd><p class="txt">商城8800福分1000张</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>8</dt>
+          <dd><p class="txt">商城500福分10000张</p></dd>
+        </dl>
+      </div>
+
+      <div class="rule-list">
+        <div class="rule-tit"><span>活动规则</span></div>
+        <dl class="rule-txt">
+          <dt>1</dt>
+          <dd><p class="txt">本次获得共有8个奖品，相对应于8个牌子，每次只能打开一个牌子，获得一个奖品；</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>2</dt>
+          <dd><p class="txt">单次充值满50元就可以获得一次翻牌机会，100元即2次，1000元即20次，不满50元倍数的不送次数，金额不累计；</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>3</dt>
+          <dd><p class="txt">本次获得奖品送完即止；</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>4</dt>
+          <dd><p class="txt">如果其中一个奖品送完，即次奖品由5元商城充值券代替；</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>5</dt>
+          <dd><p class="txt">通过恶意注册或者其他不正当手段等参与本活动，将取消其参与及领奖资格，且有权回收通过本活动获取的奖品，并保留追究恶意刷奖者的法律责任的权利；</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>6</dt>
+          <dd><p class="txt">广惠商城对本次活动拥有最终解释权；</p></dd>
+        </dl>
+      </div>
+      <div class="space" style="margin-bottom: 0.5rem"></div>
+    </div>
+    <div class="btns-group">
+      <a style="background: #ffed9f;color: #000" (click)="back()" class="btn-twitter">返回</a>
+    </div>
+  </app-overlay>
+</div>

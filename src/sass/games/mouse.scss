@@ -1,0 +1,16 @@
+.info {
+  .info-txt {
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    padding: 0.7rem 0.3rem 0.2rem;
+    color: #fff;
+    font-size: 0.12rem;
+    p {
+      margin-top: 0.05rem;
+      line-height: 1.4;
+    }
+  }
+}

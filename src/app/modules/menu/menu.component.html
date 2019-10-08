@@ -1,0 +1,32 @@
+<section id="menu" class="overthrow">
+  <a *ngIf="member?.usertype !== 4 || (member?.usertype === 4 && member?.isCanRecharge === 1)" routerLink="/admin/dashboard/fund/recharge" class="">
+        <span class="wrapper-menu-item">
+          <span class="icon-add"></span>
+          <span class="title-menu">会员<br>充值</span>
+        </span>
+  </a>
+  <a routerLink="/admin/dashboard/search" class="">
+        <span class="wrapper-menu-item">
+          <span class="icon-search"></span>
+          <span class="title-menu">订单<br>查询</span>
+        </span>
+  </a>
+  <a routerLink="/admin/dashboard/prices" class="">
+        <span class="wrapper-menu-item">
+          <span class="icon-category"></span>
+          <span class="title-menu">价格<br>查询</span>
+        </span>
+  </a>
+  <a *ngIf="member?.usertype !== 4" routerLink="/admin/dashboard/bind/list" class="">
+        <span class="wrapper-menu-item">
+          <span class="icon-users"></span>
+          <span class="title-menu">分销<br>管理</span>
+        </span>
+  </a>
+  <a routerLink="/admin/dashboard/records" class="">
+        <span class="wrapper-menu-item">
+          <span class="icon-graph-line"></span>
+          <span class="title-menu">充值<br>记录</span>
+        </span>
+  </a>
+</section>

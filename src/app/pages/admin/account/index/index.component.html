@@ -1,0 +1,85 @@
+<app-navbar [title]="'我的钱包'"></app-navbar>
+<div *ngIf="userInfo" [formGroup]="form" class="content-scrollable">
+  <div class="status">
+    <div class="weui-flex">
+      <div class="weui-flex__item">
+        <em>{{userInfo.walletCount}}</em>
+        <span>累积金额</span>
+      </div>
+      <div class="weui-flex__item">
+        <em>￥{{userInfo.walletBalance}}</em>
+        <span>余额</span>
+      </div>
+      <div routerLink="/admin/account/record" class="weui-flex__item">
+        <em>￥{{userInfo.walletMention}}</em>
+        <span>已提现(<a routerLink="/admin/account/record" href="javascript:;">记录</a>)</span>
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells__tips">为确保您申请的金额能够正确无误的转入您的账户，请填写真实有效的账户信息，以下信息均为必填项！</div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('money').invalid && form.get('money').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">提现金额</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="money" class="weui-input" type="number" pattern="[0-9]*">
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells__tips">可提现：<em>{{userInfo?.walletBalance}}元</em>，满100元才可以申请提现
+  </div>
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('bankuser').invalid && form.get('bankuser').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">开户人</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="bankuser" class="weui-input">
+      </div>
+    </div>
+    <div class="mg weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('bankname').invalid && form.get('bankname').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">银行名称</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="bankname" class="weui-input">
+      </div>
+    </div>
+    <div class="mg weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('banksubbranch').invalid && form.get('banksubbranch').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">开户支行</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="banksubbranch" class="weui-input">
+      </div>
+    </div>
+    <div class="mg weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('bankno').invalid && form.get('bankno').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">银行账号</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="bankno" class="weui-input">
+      </div>
+    </div>
+    <div class="weui-cell"
+         [ngClass]="{'weui-cell_warn':form.get('phone').invalid && form.get('phone').dirty}">
+      <div class="weui-cell__hd">
+        <span class="weui-label">联系电话</span>
+      </div>
+      <div class="weui-cell__bd">
+        <input formControlName="phone" class="weui-input">
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells__tips">格式输入138****8888</div>
+
+  <div class="weui-btn-area">
+    <a weui-button (click)="withdrawal()" [weui-loading]="withdrawalStatus.loading" [weui-type]="'primary'">提交申请</a>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<app-navbar [title]="'我的地址'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="setting-content content-scrollable has-footer">
+  <form novalidate [formGroup]="settingForm">
+    <div *ngFor="let address of addresses" class="weui-cells weui-cells_checkbox">
+      <div class="weui-cell weui-check__label">
+        <label class="weui-cell__hd">
+          <input type="radio" class="weui-check" name="checkbox1" checked="{{address.status === 1 ? true : false}}">
+          <i class="weui-icon-checked"></i>
+        </label>
+        <div class="weui-cell__bd">
+          {{address.consignee}}<span class="right">{{address.phone}}</span>
+          <p class="weui-media-box__desc">{{address.province + address.city + address.district + address.address}}</p>
+        </div>
+      </div>
+      <div class="weui-cell weui-cell_link">
+        <div class="weui-cell__bd"></div>
+        <div class="weui-cell__ft">
+          <span [routerLink]="['/admin/setting/address/edit',address.id]"><i class="icon-edit"></i> <span>编辑</span></span>
+          <em (click)="del(address.id)"><i class="icon-trash"></i> <span>删除</span></em>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <a routerLink="/admin/setting/address/add" weui-button [weui-type]="'primary'">
+        添加新地址
+      </a>
+    </div>
+  </form>
+</div>

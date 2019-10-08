@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" style="font-size: 100px">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0, viewport-fit = cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="/assets/css/weui.min.css" rel="stylesheet">
+  <link href="/assets/css/animate.min.css" rel="stylesheet">
+</head>
+<body id="_body">
+<app-root></app-root>
+<script>
+  const $html = document.getElementsByTagName('html');
+  const $body = document.getElementsByTagName('body');
+  $html[0].style.fontSize = $body[0].clientWidth / 375 * 100 + 'px';
+</script>
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+<script src="https://gw.alipayobjects.com/os/antv/assets/f2/3.1.3/f2.js"></script>
+<script src="/assets/js/qrcode.js"></script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?07fc04b33a09e0f3f1beca69750beb4f";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+</body>
+</html>

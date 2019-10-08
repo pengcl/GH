@@ -1,0 +1,22 @@
+<app-navbar [title]="'我的晒单'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="content-scrollable">
+  <form [formGroup]="replyForm" (submit)="onSubmit()">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <textarea formControlName="content" class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+          <div class="weui-textarea-counter"><span>{{replyForm.get('content').value.length}}</span>/200</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <button type="submit" weui-button [weui-type]="'primary'" [disabled]="replyForm.invalid"
+              [weui-loading]="loading">
+        确定
+      </button>
+    </div>
+  </form>
+</div>

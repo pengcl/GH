@@ -1,0 +1,106 @@
+<app-navbar [show]="true" [title]="'订单查询'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<weui-infiniteloader class="search has-nav h-footer" (loadmore)="onLoadMore($event)" #comp>
+
+  <div class="records">
+    <div class="weui-cells__title">列表记录</div>
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <input [(ngModel)]="params.word" (ngModelChange)="inputChange(params.word)" class="weui-input"
+                 placeholder="输入要查询的会员手机号">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-search"></i>
+        </div>
+      </div>
+      <div *ngIf="phonesShow" class="phones">
+
+        <a (click)="selectedPhone(item.phone)" *ngFor="let item of phones" class="weui-cell">
+          <div class="weui-cell__bd">
+            <p>{{item.phone}}</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+    <div class="weui-cells__tips"><em>备注：</em>空值查询是查当天的纪录 <a *ngIf="exportUrl" href="{{config.prefix.wApi + exportUrl}}" class="right">导出excel</a></div>
+
+    <div class="weui-cells__title">日期查询</div>
+    <div class="weui-cells weui-cells_date">
+      <a (click)="onShow('beginDate')" class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+          <p>开始时间</p>
+        </div>
+        <div class="weui-cell__ft">{{params.beginDate}}</div>
+      </a>
+      <a (click)="onShow('endDate')" class="weui-cell weui-cell_access" href="javascript:;">
+        <div class="weui-cell__bd">
+          <p>结束时间</p>
+        </div>
+        <div class="weui-cell__ft">{{params.endDate}}</div>
+      </a>
+    </div>
+
+    <div class="weui-btn-area">
+      <a (click)="search()" class="weui-btn weui-btn_primary">立即查询</a>
+    </div>
+  </div>
+
+  <div *ngIf="statistics" class="status">
+    <div class="weui-flex">
+      <div class="weui-flex__item">
+        <em>{{statistics.totalcount}}</em>
+        <span>记录数</span>
+      </div>
+      <div class="weui-flex__item">
+        <em><sub>￥</sub>{{statistics.totalprice}}</em>
+        <span>商品总价</span>
+      </div>
+      <div routerLink="/admin/commissions" class="weui-flex__item">
+        <em><sub>￥</sub>{{statistics.totalbuyingprice}}</em>
+        <span>进货总价</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let item of orders" class="weui-form-preview">
+    <div class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box__hd">
+        <img class="weui-media-box__thumb"
+             src="{{config.prefix.wApi + item.productimg}}"
+             alt="">
+      </div>
+      <div class="weui-media-box__bd">
+        <h4 class="weui-media-box__title">(<em>第{{item.productperiod}}期</em>){{item.productname}}</h4>
+        <div class="weui-flex">
+          <div class="weui-flex__item">销售价：<span>￥{{item.productprice}}</span></div>
+          <div class="weui-flex__item">进货价：<em>￥{{item.buyingprice}}</em></div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-form-preview__bd">
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">订单号</label>
+        <span class="weui-form-preview__value"><em>{{item.orderno}}</em></span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">收件人姓名</label>
+        <span class="weui-form-preview__value">{{item.consignee}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">收件人手机号码</label>
+        <span class="weui-form-preview__value">{{item.phone}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">开奖时间</label>
+        <span class="weui-form-preview__value">{{item.announcedtime}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">确认地址时间</label>
+        <span class="weui-form-preview__value">{{item.addresssubmittime | date : 'yyyy-MM-dd HH:mm:ss'}}</span>
+      </div>
+    </div>
+  </div>
+</weui-infiniteloader>

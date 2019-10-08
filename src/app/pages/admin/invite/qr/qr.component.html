@@ -1,0 +1,26 @@
+<app-navbar [title]="'邀请好友'"></app-navbar>
+<div class="qr canvas-source content-scrollable">
+  <div class="qr-content">
+    <div class="tit">广惠商城</div>
+    <div class="hd">邀请好友扫一扫吧！</div>
+    <div id="qrcode"></div>
+    <div class="ft">
+      <div class="domain">{{config.webHost}}</div>
+      <div class="txt">
+        成功邀请好友注册消费<br><em>推荐消费佣金等着您</em>
+      </div>
+    </div>
+  </div>
+  <div class="text">
+    <h2>活动规则：</h2>
+    <ol>
+      <li>新用户首次充值返10%（线下充值返现需联系线下充值客服）</li>
+      <li>新注册用户分享到朋友圈，送一次抽奖</li>
+      <li>新注册用户首次充值后分享到朋友圈，送一次抽奖</li>
+      <li>在活动时间范围内，满100元再送一次抽奖，不限次数</li>
+    </ol>
+  </div>
+</div>
+<div *ngIf="poster" class="canvas-dist content-scrollable">
+  <img src="{{poster}}">
+</div>

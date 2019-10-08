@@ -1,0 +1,24 @@
+.weui-grid {
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+}
+
+.cart-ball {
+  width: 10px;
+  height: 10px;
+  line-height: 10px;
+  background: red;
+  border-radius: 10px;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  &.animated {
+    transition: left 0.2s ease-out, top 0.2s ease-in;
+    transform: translate3d(0, 0, 0);
+  }
+  &.show {
+    display: block;
+  }
+}

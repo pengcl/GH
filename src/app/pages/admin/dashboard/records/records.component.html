@@ -1,0 +1,30 @@
+<app-navbar [show]="true" [title]="'充值记录'"></app-navbar>
+<!--<app-tabbar></app-tabbar>-->
+
+<weui-infiniteloader [hidden]="50" (loadmore)="onLoadMore($event)" #comp>
+  <app-msg title="暂无充值记录"></app-msg>
+  <div *ngIf="records?.length > 0" class="content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th class="date">充值时间</th>
+        <!--<th class="type">充值类型</th>-->
+        <th class="mobile">充值帐号</th>
+        <th class="rmb">充值金额</th>
+        <th class="action"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of records">
+        <td class="date">{{item.date | repairDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <!--<td class="type">{{item.interfacetype}}</td>-->
+        <td class="mobile">{{item.mobile}}</td>
+        <td class="rmb" [ngClass]="{'cancel':item.money < 0}">￥{{item.money}}</td>
+        <td class="action">
+          <a (click)="cancel(item.outtradeno)" *ngIf="item.cancancel === 1 && item.money > 0" href="javascript:;">撤回</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</weui-infiniteloader>

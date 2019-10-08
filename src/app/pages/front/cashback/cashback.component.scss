@@ -1,0 +1,152 @@
+.content-scrollable {
+  background: #fff;
+}
+
+.formula {
+  margin: 0.2rem 0.15rem 0.125rem;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.formula-compute {
+  margin: 0.1rem;
+  .weui-flex__item {
+    margin: 0.075rem;
+    background: #F7F7F7;
+    border-radius: 0.04rem;
+    padding: 0.15rem;
+    em {
+      font-size: 0.15rem;
+      line-height: 0.21rem
+    }
+    p {
+      margin-top: 0.1rem;
+      font-size: 0.1rem;
+      color: #999;
+      b {
+        color: #0F0F0F;
+      }
+    }
+  }
+}
+
+.content {
+  background: #F7F7F7;
+  padding-top: 0.1rem;
+  table {
+    background: #fff;
+    width: 100%;
+    font-size: 0.12rem;
+    line-height: 1;
+    padding: 0 0.15rem;
+    thead {
+      border-bottom: 1px solid #ccc;
+      tr {
+        th {
+          font-weight: normal;
+          color: #999;
+          padding: 0.15rem 0;
+          position: relative;
+          &.date {
+            width: 40%;
+            text-align: left;
+            padding-left: 0.15rem;
+          }
+          &.mobile {
+            width: 25%;
+          }
+          &.rmb {
+            width: 35%;
+          }
+          &:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 1px;
+            border-bottom: 1px solid #CCCCCC;
+            color: #CCCCCC;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+        }
+      }
+    }
+    tbody {
+      padding: 0.075rem 0;
+      tr {
+        td {
+          text-align: center;
+          padding: 0.075rem 0;
+          color: #999;
+          &.date {
+            text-align: left;
+            padding-left: 0.15rem !important;
+          }
+          &.rmb {
+            color: #F26549;
+          }
+          &.hd {
+            img {
+              display: block;
+              width: 0.3rem;
+            }
+          }
+        }
+        &:first-child {
+          td {
+            padding: 0.15rem 0 0.075rem;
+          }
+        }
+        &:last-child {
+          td {
+            padding: 0.075rem 0 0.15rem;
+          }
+        }
+      }
+    }
+    tfoot {
+      tr {
+        td {
+          font-weight: normal;
+          color: #999;
+          padding: 0.15rem;
+          position: relative;
+
+          &:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: auto;
+            right: 0;
+            height: 1px;
+            border-top: 1px solid #CCCCCC;
+            color: #CCCCCC;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+        }
+      }
+    }
+  }
+
+  .rule-list {
+    background: #fff;
+    .rule-tit {
+      &:before, &:after {
+        background: #F26549;
+      }
+    }
+    .rule-txt {
+      color: #999;
+    }
+  }
+}

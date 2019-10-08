@@ -1,0 +1,30 @@
+<app-navbar [show]="true" [title]="'绑定手机号'"></app-navbar>
+<div #container class="auth-content content-scrollable has-nav">
+  <form novalidate [formGroup]="bindForm" (submit)="edit()">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':bindForm.get('remark').invalid}">
+        <div class="weui-cell__hd">
+          <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/admin/people_list.png">
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="text" formControlName="remark" placeholder="请输入分销商名称">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-icon-warn"></span>
+        </div>
+      </div>
+      <div class="weui-cell weui-cell_switch">
+        <div class="weui-cell__hd">
+          <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/admin/money_bag.png"></div>
+        <div class="weui-cell__bd">是否允许线下充值</div>
+        <div class="weui-cell__ft">
+          <input (click)="setCanRecharge()" [checked]="!!bindForm.get('isCanRecharge').value" class="weui-switch" type="checkbox">
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">确认绑定</button>
+    </div>
+  </form>
+</div>

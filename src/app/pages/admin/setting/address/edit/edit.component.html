@@ -1,0 +1,51 @@
+<app-navbar [title]="'编辑地址'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="setting-content content-scrollable has-footer">
+  <form novalidate [formGroup]="settingForm" (ngSubmit)="onSubmit()">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell"
+           [ngClass]="{'weui-cell_warn':settingForm.get('lnker').invalid && settingForm.get('lnker').dirty}">
+        <div class="weui-cell__bd">
+          <input class="weui-input" formControlName="lnker" placeholder="请输入名称">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <input class="weui-input" weui-input="mobile" weui-required formControlName="mobile" placeholder="请输入手机号码">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+      <a (click)="showPicker()"
+         [ngClass]="{'weui-cell_warn':settingForm.get('rgnpro').invalid && settingForm.get('rgnpro').dirty}"
+         class="weui-cell weui-cell_access">
+        <div class="weui-cell__bd">
+          <p>所在地区</p>
+        </div>
+        <div class="weui-cell__ft">{{settingForm.get('rgncity').value ? settingForm.get('rgnpro').value +
+          settingForm.get('rgncity').value + settingForm.get('rgnarea').value : '请选择您所在的地区'}}
+        </div>
+      </a>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <input class="weui-input" weui-required formControlName="rgndtl" placeholder="请输入详细的地址信息">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <button type="submit" weui-button [weui-type]="'primary'" [disabled]="settingForm.invalid"
+              [weui-loading]="loading">
+        保存
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<app-navbar [title]="'修改昵称'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="userInfo" class="setting-content content-scrollable has-footer">
+  <form novalidate [formGroup]="settingForm" (ngSubmit)="onSubmit()">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':settingForm.get('username').invalid && settingForm.get('username').dirty}">
+        <div class="weui-cell__hd"><label class="weui-label">修改昵称</label></div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" formControlName="username" placeholder="{{userInfo.username}}">
+        </div>
+        <div class="weui-cell__ft">
+          <i class="weui-icon-warn"></i>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells__tips">该名称用来对外显示，请勿超过8个字符</div>
+
+    <div class="weui-btn-area">
+      <button type="submit" weui-button [weui-type]="'primary'" [disabled]="settingForm.invalid" [weui-loading]="loading">
+        确定
+      </button>
+    </div>
+  </form>
+</div>

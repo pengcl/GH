@@ -1,0 +1,234 @@
+.weui-infiniteloader {
+  background: #f7f7f7;
+}
+.news {
+  overflow: hidden;
+  background: #fff;
+  .weui-cell {
+    margin: 0.15rem;
+    background: #F7F7F7;
+    font-size: 0.12rem;
+    color: #333;
+    line-height: 1;
+    padding: 0.1rem;
+    .weui-cell__hd {
+      span {
+        padding: 0.04rem 0.05rem;
+        display: block;
+        color: #fff;
+        border-radius: 0.04rem;
+        margin-right: 0.1rem;
+      }
+    }
+    .weui-cell__bd {
+      padding: 0.04rem 0.05rem 0.04rem 0.1rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
+      &:before {
+        content: " ";
+        position: absolute;
+        top: -1px;
+        bottom: -1px;
+        left: 0;
+        width: 1px;
+        border-left: 1px solid #DCDCDC;
+      }
+    }
+  }
+}
+.goods {
+  .weui-cell {
+    padding: 0.1rem 0.15rem;
+  }
+  .type-list {
+    background: #fff;
+    margin: 0 -0.075rem;
+    padding: 0.15rem;
+    &.fixed {
+      width: 100%;
+      position: fixed;
+      z-index: 99999;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+    }
+    .type-box {
+      background: #F7F7F7;
+      text-align: left;
+      color: #666;
+      display: block;
+      padding: 0.06rem 0.1rem;
+      border-radius: 0.3rem;
+      line-height: 0.14rem;
+      position: relative;
+      margin: 0.1rem 0.075rem;
+      em {
+        background: #DCDCDC;
+        width: 0.18rem;
+        height: 0.18rem;
+        line-height: 0.18rem;
+        text-align: center;
+        color: #fff;
+        border-radius: 0.09rem;
+        font-size: 0.11rem;
+        font-weight: 300;
+        display: block;
+        position: absolute;
+        right: 0.1rem;
+        top: 0.04rem;
+        font-style: normal;
+      }
+      &.selected {
+        em {
+          background: #F26549;
+        }
+      }
+    }
+    .favorites {
+      text-align: center;
+      align-items: center;
+      .my, .add {
+        span {
+          display: block;
+          font-size: 0.14rem;
+          color: #F26549;
+          border-radius: 0.04rem;
+          border: 1px solid #F26549;
+          line-height: 1;
+          padding: 0.11rem;
+          margin: 0.075rem;
+        }
+      }
+      .add span {
+        background: #F26549;
+        color: #fff;
+      }
+      .tips {
+        flex: unset;
+        span {
+          margin: 0.075rem;
+          width: 5em;
+          text-align: right;
+          display: block;
+        }
+      }
+    }
+  }
+  .weui-panel {
+    background: none;
+    &:before, &:after {
+      display: none;
+    }
+    .weui-panel__hd {
+      &:after {
+        display: none;
+      }
+      .right {
+        color: #999;
+      }
+      .label {
+        font-size: 0.14rem;
+        color: #0F0F0F;
+        display: block;
+        line-height: 1;
+        margin: 0 auto;
+        padding: 0.06rem 0.09rem;
+        border-radius: 0.32rem;
+        &.curr {
+          color: #fff;
+          background: #F26549;
+        }
+      }
+    }
+    .weui-panel__bd {
+      background: #fff;
+    }
+    .goods-menu {
+      padding: 0 0 0.075rem;
+      .weui-cell {
+        background: #fff;
+        padding: 0.1rem 0.15rem;
+      }
+      .icon {
+        width: 0.22rem;
+        display: block;
+        margin-left: 0.15rem;
+      }
+    }
+    .weui-media-box {
+      .weui-media-box__hd {
+        width: 0.75rem;
+        height: 0.75rem;
+        margin-right: 0.15rem;
+        img {
+          display: block;
+          width: 0.75rem;
+          height: 0.75rem;
+        }
+      }
+      .weui-media-box__bd {
+        .weui-media-box__title {
+          font-size: 0.13rem;
+          display: -webkit-box;
+          white-space: normal;
+          line-height: 0.16rem;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+        .weui-media-box__info {
+          font-size: 0.1rem;
+          .right {
+            padding-right: 0;
+          }
+          em {
+            font-size: 0.12rem;
+            color: #F26549;
+            font-style: normal;
+            line-height: 0.17rem;
+          }
+          span {
+            display: block;
+            padding: 0;
+            line-height: 0.17rem;
+            color: #3F3F3F;
+            em {
+              font-size: 0.1rem;
+            }
+          }
+        }
+      }
+      .weui-media-box__ft {
+        margin-left: 0.2rem;
+        img {
+          width: 0.3rem;
+        }
+      }
+    }
+  }
+}
+
+weui-progress {
+  display: block;
+  margin-top: 0.1rem;
+}
+
+.cart-ball {
+  padding: 0.15rem;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  img {
+    display: block;
+    width: 100%;
+  }
+  &.animated {
+    transition: left 0.5s ease-out, top 0.5s ease-in, width 0.5s, height 0.5s;
+    transform: translate3d(0, 0, 0);
+  }
+  &.show {
+    display: block;
+  }
+}

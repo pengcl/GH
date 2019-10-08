@@ -1,0 +1,94 @@
+<app-navbar [title]="'账户充值'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="account-fund content-scrollable has-footer">
+  <div class="status">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">您的当前余额 (元)</div>
+      <div class="weui-cell__ft">￥{{userInfo?.balance}}</div>
+    </div>
+  </div>
+  <div class="weui-cells__title">充值金额</div>
+  <div class="weui-grids">
+    <div class="weui-grid">
+      <div (click)="setAmount(21)" [ngClass]="{'curr':submitForm.get('amount').value === 21}" class="weui-grid__box">21元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(52)" [ngClass]="{'curr':submitForm.get('amount').value === 52}" class="weui-grid__box">52元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(103)" [ngClass]="{'curr':submitForm.get('amount').value === 103}" class="weui-grid__box">103元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(204)" [ngClass]="{'curr':submitForm.get('amount').value === 204}" class="weui-grid__box">204元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(505)" [ngClass]="{'curr':submitForm.get('amount').value === 505}" class="weui-grid__box">505元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(1006)" [ngClass]="{'curr':submitForm.get('amount').value === 1006}" class="weui-grid__box">1006元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(2007)" [ngClass]="{'curr':submitForm.get('amount').value === 2007}" class="weui-grid__box">2007元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="setAmount(5008)" [ngClass]="{'curr':submitForm.get('amount').value === 5008}" class="weui-grid__box">5008元</div>
+    </div>
+    <div class="weui-grid">
+      <div (click)="custom()" [ngClass]="{'curr':isCustom}" class="weui-grid__box">其它金额</div>
+    </div>
+  </div>
+
+  <div *ngIf="isCustom" class="weui-cells__title">自定义金额</div>
+  <div [formGroup]="submitForm" *ngIf="isCustom" class="weui-cells weui-cells_form">
+    <div class="weui-cell" [ngClass]="{'weui-cell_warn':submitForm.get('amount').invalid}">
+      <div class="weui-cell__bd">
+        <input class="weui-input" formControlName="amount" type="number" pattern="[0-9]*" placeholder="请输入充值金额，最低21元">
+      </div>
+      <div class="weui-cell__ft">
+        <i class="weui-icon-warn"></i>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="weui-cells__title">支付方式</div>
+  <div [formGroup]="submitForm" class="pay-types weui-cells weui-cells_radio">
+    <label *ngFor="let payType of payTypes" class="weui-cell weui-check__label">
+      <div class="weui-cell__hd">
+        <img style="width: 0.15rem;margin-right: 0.08rem;display: block" src="{{config.prefix.wApi + payType.icon}}">
+      </div>
+      <div class="weui-cell__bd">
+        <p>{{payType.mchname}}</p>
+      </div>
+      <div class="weui-cell__ft">
+        <input (click)="setPayType(payType)" formControlName="payType" [checked]="payType.isdefault" [value]="payType.paytype" type="radio" class="weui-check">
+        <span class="weui-icon-checked"></span>
+      </div>
+    </label>
+  </div>
+
+  <div class="weui-btn-area">
+    <button (click)="submit()" weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">确认充值</button>
+  </div>
+</div>
+
+<form style="display: none" class="weui-cells weui-cells_form" #customForm [action]="formData?.action" method="post">
+  <div *ngFor="let item of formData | keys" class="weui-cell">
+    <div class="weui-cell__bd"><input class="weui-input" name="{{item.key}}" value="{{item.value}}"></div>
+  </div>
+</form>
+
+<weui-mask backdrop="true" #mask>
+    <!--<img *ngIf="qrCodeUrl" [src]="qrCodeUrl">-->
+    <ngx-qrcode
+      *ngIf="showType === 1"
+      [qrc-element-type]="'url'"
+      [qrc-value] = "qrCodeUrl"
+      qrc-class = "'qr'"
+      qrc-errorCorrectionLevel = "L">
+    </ngx-qrcode>
+  <div *ngIf="showType === 7 && payQrCode" class="qr">
+    <img src="{{config.prefix.wApi + payQrCode}}">
+  </div>
+</weui-mask>

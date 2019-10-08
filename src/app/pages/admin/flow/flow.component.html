@@ -1,0 +1,53 @@
+<app-navbar [title]="'账户明细'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<weui-navbar *ngIf="flow" class="infiniteloader">
+  <app-infiniteloader (loadmore)="onLoadMore($event)" #comp>
+    <weui-tab heading="消费明细" (select)="onSelect(1)">
+      <app-msg *ngIf="flow.list.length === 0 && tab === 1" (event)="onCancel($event)"
+               [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+      <div *ngIf="flow.list.length > 0 && tab === 1" class="content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+          <tr>
+            <th class="date">消费时间</th>
+            <th class="mobile">消费类型</th>
+            <th class="rmb">消费金额</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of flow.list">
+            <td class="date">{{item.date.split('.')[0] | repairDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td class="mobile">{{item.interfacetype}}</td>
+            <td class="rmb">￥{{item.money}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </weui-tab>
+    <weui-tab heading="充值明细" (select)="onSelect(0)">
+      <app-msg *ngIf="flow.list.length === 0 && tab === 0" (event)="onCancel($event)"
+               [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+      <div *ngIf="flow.list.length > 0 && tab === 0" class="content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+          <tr>
+            <th class="date">充值时间</th>
+            <th class="mobile">充值类型</th>
+            <th class="rmb">充值金额</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of flow.list">
+            <td class="date">{{item.date | repairDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+            <td class="mobile">{{item.interfacetype}}</td>
+            <td class="rmb">￥{{item.money}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </weui-tab>
+  </app-infiniteloader>
+</weui-navbar>
+
+<app-fixed-nav></app-fixed-nav>

@@ -1,0 +1,129 @@
+weui-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  >span {
+    line-height: 0.15rem;
+    text-align: center;
+    width: 0.25rem;
+    height: 0.25rem;
+    border: 0.01rem solid #F26341;
+    border-radius: 100%;
+    box-sizing: border-box;
+    em {
+      font-size: 0.14rem;
+      line-height: 0.23rem;
+      display: block;
+    }
+  }
+  >.input {
+    display: inline-block;
+    height: auto !important;
+    width: 0.5rem;
+  }
+  input {
+    border: none;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0.14rem;
+    color: #F26341;
+    line-height: 0.25rem;
+    display: block;
+    &[disabled] {
+      opacity: 1;
+      color: #000;
+      background: none;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .disabled,
+  input[disabled] {
+    opacity: .3;
+  }
+
+  &.square {
+    background: #F7F7F7;
+    position: relative;
+    &:after {
+      content: " ";
+      width: 200%;
+      height: 200%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #DCDCDC;
+      -webkit-transform: scale(0.5);
+      transform: scale(0.5);
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      box-sizing: border-box;
+      border-radius: 0.02rem;
+    }
+    >span {
+      width: 0.25rem;
+      height: 0.25rem;
+      border: 0;
+      position: relative;
+      z-index: 1;
+    }
+    >.input {
+      width: 0.4rem;
+      position: relative;
+      &:before {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        border-left: 1px solid #DCDCDC;
+        color: #DCDCDC;
+        -webkit-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+      }
+      &:after {
+        content: " ";
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 1px;
+        bottom: 0;
+        border-right: 1px solid #DCDCDC;
+        color: #DCDCDC;
+        -webkit-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+        -webkit-transform: scaleX(0.5);
+        transform: scaleX(0.5);
+      }
+    }
+    input {
+      border: none;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.14rem;
+      color: #F26341;
+      line-height: 0.25rem;
+      display: block;
+      background: transparent;
+      &[disabled] {
+        opacity: 1;
+        color: #000;
+        background: none;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    .disabled,
+    input[disabled] {
+      opacity: .3;
+    }
+  }
+}
+

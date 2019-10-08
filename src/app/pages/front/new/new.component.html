@@ -1,0 +1,49 @@
+<app-navbar [title]="'最新揭晓'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<app-infiniteloader (loadmore)="onLoadMore($event)" #comp>
+  <div class="soon">
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <div [routerLink]="['/front/item',item.lotteryproductid]" *ngFor="let item of soonOpens" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd"><img src="{{config.prefix.wApi + item.lotteryproductimg}}" alt=""></div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__desc">(第{{item.lotteryproductperiod || 1}}期){{item.lotteryproductname}}</h4>
+            <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta"><em>￥{{item.lotteryproductprice}}</em></li>
+              <li class="right weui-media-box__info__meta">
+                <span *ngIf="soonItems.indexOf(item.lotteryid) !== -1">正在揭晓中</span>
+                <span class="timer" *ngIf="soonItems.indexOf(item.lotteryid) === -1">倒计时：<countdown
+                (finished)="onFinished(item)"
+                [config]="{leftTime: getTimer(item.lotteryproductenddate,item.now) * 0.01}">$!s-ext!</countdown></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="goods">
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <ng-container *ngFor="let item of lotteries">
+          <div [routerLink]="['/front/item',item.spellbuyproductid]" *ngIf="item" class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd"><img src="{{config.prefix.wApi + item.productimg}}" alt=""></div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">开奖者：<em>{{item.username}}</em></h4>
+              <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta"><span><em>{{item.buynumbercount}}</em>人次</span></li>
+                <li class="weui-media-box__info__meta"><span><em>{{item.randomnumber}}</em>幸运码</span></li>
+              </ul>
+              <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta">订单时间：{{item.announcedtime}}</li>
+              </ul>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</app-infiniteloader>
+
+<app-fixed-nav></app-fixed-nav>

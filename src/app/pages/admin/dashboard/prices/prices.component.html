@@ -1,0 +1,46 @@
+<app-navbar [show]="true" [title]="'价格查询'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="prices content-scrollable has-nav has-footer">
+  <weui-infiniteloader class="index" (loadmore)="onLoadMore($event)" #comp>
+    <div class="records">
+      <div class="weui-cells weui-cells_date">
+        <a (click)="showPicker()" class="weui-cell weui-cell_access">
+          <div class="weui-cell__bd">
+            <p>商品类别</p>
+          </div>
+          <div class="weui-cell__ft">{{type?.label}}</div>
+        </a>
+        <div class="weui-cell">
+          <div class="weui-cell__hd">商品名称</div>
+          <div class="weui-cell__bd">
+            <input type="text" [(ngModel)]="params.productName" (ngModelChange)="inputChange($event)" class="weui-input"
+                   placeholder="请输入要查询的商品名称">
+          </div>
+          <div class="weui-cell__ft"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="goods?.length > 0" class="weui-panel weui-panel_access">
+      <div class="weui-panel__hd">查询结果 <span class="right"><em>{{page}}</em>/{{totalPages}} 共 "<em>{{goods.length}}</em>" 条记录</span>
+      </div>
+      <div class="weui-panel__bd">
+        <a *ngFor="let item of goods.slice(0,pageSize * page)" href="javascript:void(0);"
+           class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="{{config.prefix.wApi + item.headimage}}" alt="">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title" [innerHTML]="item.productname | searchKey : params.productName"></h4>
+            <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta">销售价：<span style="color: #4CA6FF">{{item.productprice}}</span></li>
+              <li class="weui-media-box__info__meta">进货价：<em>{{item.buyingprice}}</em></li>
+            </ul>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </weui-infiniteloader>
+</div>

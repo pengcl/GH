@@ -1,0 +1,112 @@
+.search {
+  background: #f7f7f7;
+  box-sizing: border-box;
+  .weui-cells__title {
+    em {
+      font-size: 0.18rem;
+    }
+  }
+  .weui-cells_form {
+    margin: 0.1rem 0.15rem;
+    background: none;
+    position: relative;
+    overflow: visible;
+    &:after, &:before {
+      display: none;
+    }
+    .weui-cell {
+      border-radius: 0.5rem;
+      font-size: 0.12rem;
+      background: #fff;
+      padding: 0.11rem 0.15rem;
+    }
+    .phones {
+      position: absolute;
+      width: 100%;
+      z-index: 10;
+      .weui-cell {
+        /*box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);*/
+      }
+    }
+  }
+  .weui-cells__tips {
+    text-align: left;
+    font-size: 0.12rem;
+    em {
+      color: #4CA6FF;
+    }
+  }
+  .weui-cells_date {
+    font-size: 0.14rem;
+    &:before, &:after {
+      display: none;
+    }
+    .weui-cell {
+      padding: 0.15rem 0.15rem;
+    }
+  }
+
+  .weui-btn-area {
+    margin: 0.2rem 1rem;
+    .weui-btn {
+      font-size: 0.14rem;
+      padding: 0.1rem 0;
+    }
+  }
+
+  .status {
+    .weui-flex {
+      .weui-flex__item {
+        text-align: center;
+        align-self: center;
+        padding: 0.2rem 0 0.1rem;
+        em, span {
+          display: block;
+          line-height: 1;
+        }
+        span {
+          font-size: 0.12rem;
+          color: #666;
+        }
+        em {
+          font-size: 0.18rem;
+          margin-bottom: 0.1rem;
+          sub {
+            color: #F26549;
+          }
+        }
+      }
+    }
+  }
+
+  .weui-form-preview {
+    margin: 0.15rem;
+    border-radius: 0.04rem;
+    &:before, &:after {
+      display: none;
+    }
+    .weui-media-box {
+      font-size: 0.12rem;
+      &:before {
+        display: block;
+        top: auto;
+        bottom: 0;
+        border-top: 0;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .weui-media-box__title {
+        font-size: 0.13rem;
+      }
+      .weui-flex {
+        line-height: 1;
+        margin-top: 0.15rem;
+        .weui-flex__item {
+          color: #999;
+          &.price {
+            color: #F26549;
+          }
+        }
+      }
+    }
+  }
+}

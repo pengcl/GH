@@ -1,0 +1,96 @@
+<app-navbar [title]="'商品列表'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<app-infiniteloader class="index" [config]="loaderConfig" (loadmore)="onLoadMore($event)" #comp>
+  <div class="goods">
+    <div class="weui-panel weui-panel_access">
+      <div class="goods-menu weui-panel__hd">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <div class="weui-flex">
+              <div class="weui-flex__item">
+                <span (click)="setOrder('soonOpen')" class="label"
+                      [ngClass]="{'curr':ord === 'soonOpen'}">即将获得</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('new')" class="label" [ngClass]="{'curr':ord === 'new'}">最新发布</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('hot')" class="label" [ngClass]="{'curr':ord === 'hot'}">新品推荐</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('maxPrice')" class="label"
+                      [ngClass]="{'curr':ord === 'maxPrice' || ord === 'minPrice'}">价格优先</span>
+              </div>
+            </div>
+          </div>
+          <div class="weui-cell__ft"><img (click)="typeShow = !typeShow" class="icon"
+                                          src="/assets/images/icons/apps.png"></div>
+        </div>
+        <div *ngIf="typeShow" class="type-list">
+          <div class="weui-grids">
+            <div class="weui-grid">
+              <span class="type-box"><span (click)="setType('')">全部</span></span>
+            </div>
+            <div *ngFor="let type of typeList" class="weui-grid">
+              <span class="type-box" [ngClass]="{'selected':type.selected}"><span (click)="setType(type)">{{type.typename}}</span><em
+                (click)="type.selected = !type.selected;onSelectedType(type);">{{type.num}}</em></span>
+            </div>
+          </div>
+          <div class="favorites weui-flex">
+            <div class="my weui-flex__item">
+              <span routerLink="/admin/collect">我的收藏</span>
+            </div>
+            <div class="add weui-flex__item">
+              <span (click)="addCarts()">一键添加</span>
+            </div>
+            <div class="tips weui-flex__item">
+              <span>{{typeSelectedCount ? '已选' + typeSelectedCount + '件' : '最多200件'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-panel__bd">
+        <div *ngFor="let item of goods?.list" class="weui-media-box weui-media-box_appmsg">
+          <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__hd"><img
+            src="{{config.prefix.wApi + item.headimage}}" alt=""></div>
+          <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">(第{{item.productperiod || 1}}期){{item.productname}}</h4>
+            <weui-progress [value]="item.bili" [canCancel]="false"></weui-progress>
+            <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta"><em>￥{{item.spellbuyprice}}</em></li>
+              <li class="right weui-media-box__info__meta">
+                <span><em>已参与{{item.nowcount}}</em> / 剩余{{item.pluscount}}</span></li>
+            </ul>
+          </div>
+          <div (click)="addCart(item.spellbuyproductid,$event)" class="weui-media-box__ft"><img
+            src="/assets/images/icons/shoppingCart.png"></div>
+          <!--<div class="weui-grid">
+            <div class="weui-grid__icon">
+              <div class="img-box">
+                <img src="{{config.prefix.wApi + item.headimage}}" alt="">
+              </div>
+            </div>
+            <p class="weui-grid__label">{{item.productname}}</p>
+            <div class="weui-flex">
+              <div class="price weui-flex__item">价值：{{item.spellbuyprice}}</div>
+              <div class="store weui-flex__item">剩余{{item.pluscount}}</div>
+            </div>
+            <weui-progress [value]="item.bili" [canCancel]="false"></weui-progress>
+            <div class="action weui-flex">
+              <div class="buy weui-flex__item">立即抢购</div>
+              <div class="cart weui-flex__item"><img src="/assets/images/icons/shoppingCart.png"></div>
+            </div>
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</app-infiniteloader>
+
+<app-fixed-nav></app-fixed-nav>
+
+<span class="cart-ball" [ngClass]="{'show animated' : cartBallShow}"
+      [ngStyle]="{'left':position.x + 'px','top':position.y + 'px','width':size.w + 'rem','height':size.h + 'rem'}">
+  <img *ngIf="sourceElement?.currentSrc" src="{{sourceElement.currentSrc}}">
+</span>

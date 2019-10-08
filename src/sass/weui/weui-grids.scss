@@ -1,0 +1,11 @@
+.weui-grids {
+  &:before,&:after {
+    display: none;
+  }
+  .weui-grid {
+    padding: 0;
+    &:before,&:after {
+      display: none;
+    }
+  }
+}

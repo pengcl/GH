@@ -1,0 +1,38 @@
+.weui-mask {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.weui-mask__in {
+  opacity: 1;
+  visibility: visible;
+}
+
+.weui-mask {
+  transition-duration: .3s;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.weui-dialog__in {
+  transform: scale(1) translate(-50%, -50%);
+}
+
+.weixinShareImg {
+  position: relative;
+  width: 100%;
+  .weixinShareTxt {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.12rem;
+    color: #fff;
+    .targetTxt {
+      color: #ff0000;
+    }
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+}

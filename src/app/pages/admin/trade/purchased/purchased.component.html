@@ -1,0 +1,53 @@
+<app-navbar [title]="'已获商品'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<app-infiniteloader *ngIf="purchased" (loadmore)="onLoadMore($event)" #comp>
+  <app-msg *ngIf="purchased.list.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div *ngFor="let item of purchased.list" class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div class="purchased-item">
+        <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img src="{{config.prefix.wApi + item.productimg}}"
+                 alt="">
+            <span *ngIf="item.pk_type === 3" class="flag">
+              <img src="/assets/images/red-flag.png">
+            </span>
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title"><em>(第{{item.productperiod}}期)</em>{{item.productname}}</h4>
+            <p class="lucky-no weui-media-box__desc">{{item.pk_type === 3 ? '最大元宝' : '幸运号码'}}：<em>{{item.randomnumber}}</em></p>
+            <p class="order-no weui-media-box__desc">订单号码：<em>{{item.orderno}}</em></p>
+            <p class="order-time weui-media-box__desc">订单时间：{{item.buytime | repairDate | date : 'yyyy-MM-dd
+              HH:mm:ss'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-panel__ft">
+      <!-- 状态 1未提交收获地址 2等待发货 3等待收货 4已确认收货 -->
+      <div class="weui-cell weui-cell_link">
+        <div class="weui-cell__bd"></div>
+        <div class="weui-cell__ft">
+          <span (click)="invite(item)" *ngIf="item.status === 0" class="active">邀请好友扫码</span>
+          <span (click)="saveProdAddr(item)" *ngIf="item.status === 1" class="active">完善地址</span>
+          <span [routerLink]="['/admin/trade/preview',item.spellbuyproductidEnc]" *ngIf="item.status === 1" class="active">系统回购</span>
+          <span *ngIf="item.status === 2">正在备货</span>
+          <span (click)="confirmProd(item)" *ngIf="item.status === 3" class="active">确认收货</span>
+          <span [routerLink]="['/admin/trade/logistics',item.spellbuyproductidEnc]" *ngIf="item.status !== 0 && item.status !== 1 && item.status !== 4" class="active">查看订单</span>
+          <div *ngIf="item.status === 4">
+            <span>已完成</span>
+            <span [routerLink]="['/admin/share/add',item.spellbuyproductid]" *ngIf="item.sharestatus === -1 && item.isshare === 2 && item.isautocontact === 1"
+                  class="active">晒单</span>
+            <span (click)="onShare(item)" *ngIf="item.isshareorder === 0" class="active">分享</span>
+            <span *ngIf="item.isshareorder === 1">已分享</span>
+            <span [routerLink]="['/admin/trade/logistics',item.spellbuyproductidEnc]" class="active">查看订单</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-infiniteloader>
+
+<app-fixed-nav></app-fixed-nav>

@@ -1,0 +1,48 @@
+.content-scrollable {
+  background: #fff;
+}
+
+.weui-icon-success {
+  color: #F26341;
+}
+
+.weui-media-box {
+  text-align: left;
+  .weui-media-box__hd {
+    position: relative;
+    .flag {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0.24rem;
+      height: 0.24rem;
+      border-radius: 100%;
+      box-shadow: 2px 2px 2px 4px rgba(0,0,0,0.2);
+      border: 1px solid #fff;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+  .weui-media-box__title {
+    font-size: 0.15rem;
+    text-align: left;
+    margin-bottom: 0.03rem;
+  }
+  .weui-media-box__desc {
+    font-size: 0.13rem;
+    em {
+      font-size: 0.16rem;
+    }
+  }
+  .weui-media-box__info {
+    font-size: 0.13rem;
+    margin-top: 0.08rem;
+    padding-bottom: 0.05rem;
+  }
+}
+
+.weui-msg__extra-area {
+  position: static;
+}

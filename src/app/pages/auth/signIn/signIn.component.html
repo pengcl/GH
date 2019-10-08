@@ -1,0 +1,99 @@
+<app-navbar [title]="'会员登录'"></app-navbar>
+<app-tabbar></app-tabbar>
+<div #container class="auth-content content-scrollable">
+  <div #userinfo class="userinfo">
+    <img class="userinfo-avatar" src="{{config.prefix.wApi + sysConfig?.saitlogo}}"/>
+    <div class="userinfo-nickname">广惠商城</div>
+    <div class="userinfo-service">欢迎来到广惠商城</div>
+  </div>
+  <div #auth class="auth" [ngStyle]="{'height':authHeight}">
+    <weui-navbar>
+      <weui-tab heading="登录">
+        <form novalidate [formGroup]="signInForm">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':signInForm.get('loginid').invalid && isSignInFormSubmit}">
+              <div class="weui-cell__hd">
+                <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/user.png">
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="number" pattern="[0-9]*" formControlName="loginid" placeholder="请输入手机号">
+              </div>
+              <div class="weui-cell__ft">
+                <span class="weui-icon-warn"></span>
+              </div>
+            </div>
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':signInForm.get('pwd').invalid && isSignInFormSubmit}">
+              <div class="weui-cell__hd">
+                <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+              </div>
+              <div class="weui-cell__ft">
+                <span class="weui-icon-warn"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="weui-btn-area">
+            <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary" (click)="signIn()">登录
+            </button>
+          </div>
+          <div class="forgot weui-cells__tips"><a routerLink="/auth/forgot">忘记密码？</a></div>
+        </form>
+      </weui-tab>
+      <weui-tab heading="注册">
+        <form novalidate [formGroup]="signUpForm" (submit)="signUp()">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('loginid').invalid && isSignUpFormSubmit}">
+              <div class="weui-cell__hd">
+                <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/user.png">
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="number" pattern="[0-9]*" formControlName="loginid" placeholder="请输入手机号">
+              </div>
+              <div class="weui-cell__ft">
+                <span class="weui-icon-warn"></span>
+              </div>
+            </div>
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('pwd').invalid && isSignUpFormSubmit}">
+              <div class="weui-cell__hd">
+                <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+              </div>
+              <div class="weui-cell__ft">
+                <span class="weui-icon-warn"></span>
+              </div>
+            </div>
+            <div class="valid-code weui-cell" [ngClass]="{'weui-cell_warn':signUpForm.get('validCode').invalid && isSignUpFormSubmit}">
+              <div class="weui-cell__hd">
+                <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/code.png">
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input" type="number" formControlName="validCode" placeholder="请输入验证码">
+              </div>
+              <div class="weui-cell__ft" [ngClass]="{'show' : signUpForm.get('loginid').valid}">
+                <span class="sendValidCode" id="sendValidCode" (click)="sendValidCode()">{{activeText}}</span>
+              </div>
+            </div>
+          </div>
+
+          <label for="weuiAgree" class="weui-agree" [ngClass]="{'weui-cell_warn':signUpForm.get('agree').invalid && isSignUpFormSubmit}">
+            <input formControlName="agree" id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+            <span class="weui-agree__text">
+                我已阅读并同意<a routerLink="/auth/agreement">《广惠商城用户协议》</a>
+            </span>
+          </label>
+
+          <div class="weui-btn-area">
+            <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">新会员注册</button>
+          </div>
+        </form>
+      </weui-tab>
+    </weui-navbar>
+  </div>
+</div>
+
+<div id="popup-captcha"></div>

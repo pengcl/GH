@@ -1,0 +1,40 @@
+.setting-content {
+  .weui-cells_checkbox {
+    margin-top: 0.15rem;
+    .weui-check__label {
+      padding: 0.15rem;
+      .weui-cell__hd {
+        .weui-icon-checked {
+          &:before {
+            font-size: 0.2rem;
+          }
+        }
+        .weui-check:checked + .weui-icon-checked:before {
+          color: #F26341;
+        }
+
+      }
+      .weui-cell__bd {
+        font-size: 0.14rem;
+        line-height: 1;
+        .weui-media-box__desc {
+          margin-top: 0.1rem;
+          font-size: 0.12rem;
+        }
+      }
+    }
+  }
+  .weui-cell_link {
+    font-size: 0.12rem;
+    line-height: 1;
+    em {
+      margin-left: 0.2rem;
+    }
+    em, span {
+      i,span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}

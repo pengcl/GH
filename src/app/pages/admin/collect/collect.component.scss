@@ -1,0 +1,150 @@
+.collects {
+  background: #fff;
+  overflow: visible;
+  &.has-footer {
+    &:after {
+      height: 101px;
+    }
+  }
+  .weui-media-box__title {
+    font-size: 0.13rem;
+  }
+  .weui-media-box {
+    font-size: 0.12rem;
+    .weui-flex {
+      line-height: 1;
+      margin-top: 0.15rem;
+    }
+    .price {
+      color: #F26549;
+    }
+    .del {
+      color: #F26549;
+      text-align: right;
+      em {
+        i,span {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+.btns-group {
+  background: #fff;
+  bottom: 53px;
+  .nav-group {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    &:before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 1px;
+      border-top: 1px solid #e5e5e5;
+      color: #e5e5e5;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+      z-index: 2;
+    }
+    .key-border {
+      flex: 1;
+      padding-left: 0.15rem;
+      padding-right: 0.15rem;
+      .key-control {
+        height: 34px;
+        background: #F7F7F7;
+        border-radius: 100px;
+        align-items: center;
+        font-size: 0.12rem;
+        color: #999;
+        .icon {
+          width: 20px;
+          height: 20px;
+          flex: unset;
+          margin: 0.07rem 0 0.07rem 0.07rem;
+          img {
+            display: block;
+            width: 100%;
+          }
+        }
+        .num {
+          text-align: center;
+        }
+      }
+    }
+    .txt {
+      font-size: 0.12rem;
+      color: #999;
+      padding: 0.1rem;
+    }
+
+    /*自定义键盘*/
+    #keyboard {
+      // display: none;
+      position: absolute;
+      width: 3rem;
+      left: 10px;
+      bottom: 55px;
+      background: #FFF;
+      opacity: .85;
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      &:after {
+        position: absolute;
+        content: ' ';
+        display: block;
+        width: 0.1rem;
+        height: 0.1rem;
+        background: #000;
+        transform: rotate(-45deg);
+        left: calc((100% / 3) / 2 - 0.05rem);
+        bottom: -.05rem;
+        z-index: -1;
+      }
+      ul {
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+        background: #000;
+        overflow: hidden;
+        li {
+          display: block;
+          float: left;
+          width: calc(100% / 3);
+          height: 0.4rem;
+          border-bottom: 1px solid #F2F2F2;
+          color: #F2F2F2;
+          font-weight: 400;
+          font-size: 0.15rem;
+          line-height: 0.4rem;
+          background: transparent;
+          list-style: none;
+          box-sizing: border-box;
+          cursor: pointer;
+          -moz-user-select: none; /*不允许数字被选中*/
+          -webkit-user-select: none;
+          &:nth-child(12) {
+            background: #F60;
+          }
+          &:active { /*点击时的背景反馈*/
+            background: #F60;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+          &:not(:nth-child(3n)) {
+            border-right: 1px solid #F2F2F2;
+          }
+        }
+      }
+    }
+  }
+}

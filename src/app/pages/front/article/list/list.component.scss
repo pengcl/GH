@@ -1,0 +1,56 @@
+weui-infiniteloader {
+  background: #f7f7f7;
+  padding-bottom: 53px;
+  box-sizing: border-box;
+}
+
+.weui-panel {
+  background: none;
+  margin: 0.1rem 0.15rem;
+  &:before, &:after {
+    display: none;
+  }
+  .weui-panel__hd {
+    text-align: center;
+    span {
+      display: inline-block;
+      background: #DCDCDC;
+      line-height: 1;
+      padding: 0.04rem 0.1rem;
+      color: #fff;
+      border-radius: 1rem;
+    }
+  }
+  .weui-panel__bd {
+    background: #fff;
+    border-radius: 0.04rem 0.04rem 0 0;
+    overflow: hidden;
+    .weui-media-box {
+      padding: 0;
+      .weui-media-box__hd {
+        img {
+          display: block;
+          width: 100%;
+        }
+      }
+      .weui-media-box__bd {
+        padding: 0.15rem;
+        .weui-media-box__title {
+          font-size: 0.12rem;
+        }
+        .weui-media-box__desc {
+          font-size: 0.12rem;
+          margin-top: 0.05rem;
+        }
+      }
+    }
+  }
+  .weui-panel__ft {
+    background: #fff;
+    border-radius: 0 0 0.04rem 0.04rem;
+    .weui-cell_link {
+      color: #4CA6FF;
+      font-size: 0.12rem;
+    }
+  }
+}

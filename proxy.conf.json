@@ -1,0 +1,20 @@
+{
+  "/api": {
+    "target": "http://127.0.0.1:3009",
+    "secure": false,
+    "pathRewrite": {
+      "^/api/": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/wApi": {
+    "target": "http://47.56.187.132:8080",
+    "secure": false,
+    "pathRewrite": {
+      "^/wApi/": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,0 +1,65 @@
+<app-navbar [title]="'购物记录'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<weui-navbar *ngIf="trade" class="infiniteloader">
+  <app-infiniteloader (loadmore)="onLoadMore($event)" class="h-footer" #comp>
+    <weui-tab heading="正在进行" (select)="onSelect('ING')">
+      <app-msg *ngIf="trade.list.length === 0 && tab === 'ING'" (event)="onCancel($event)"
+               [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+      <div *ngIf="trade.list.length > 0 && tab === 'ING'" class="content">
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+            <div [routerLink]="['/admin/trade/item',item.spellbuyproductid]" [queryParams]="{type:tab}"
+                 *ngFor="let item of trade.list" class="weui-media-box weui-media-box_appmsg">
+              <div class="weui-media-box__hd">
+                <img src="{{config.prefix.wApi + item.headimage}}" alt="">
+                <span *ngIf="item.pk_type === 3" class="flag">
+                  <img src="/assets/images/red-flag.png">
+                </span>
+              </div>
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{item.productname}}</h4>
+                <weui-progress [value]="(item.spellbuycount / item.usercount) * 100"
+                               [canCancel]="false"></weui-progress>
+                <ul class="weui-media-box__info">
+                  <li class="weui-media-box__info__meta"><em>￥{{item.spellbuyprice}}</em></li>
+                  <li class="right weui-media-box__info__meta"><span><em>已购人次{{item.buycount}}</em> / 剩余{{item.usercount - item.spellbuycount}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </weui-tab>
+    <weui-tab heading="已经揭晓" (select)="onSelect('OVER')">
+      <app-msg *ngIf="trade.list.length === 0 && tab === 'OVER'" (event)="onCancel($event)"
+               [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+      <div *ngIf="trade.list.length > 0 && tab === 'OVER'" class="content">
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+            <div [routerLink]="['/admin/trade/item',item.spellbuyproductid]" [queryParams]="{type:tab}"
+                 *ngFor="let item of trade.list"
+                 class="weui-media-box weui-media-box_appmsg">
+              <div class="weui-media-box__hd">
+                <img src="{{config.prefix.wApi + item.headimage}}" alt="">
+                <span *ngIf="item.pk_type === 3" class="flag">
+                  <img src="/assets/images/red-flag.png">
+                </span>
+              </div>
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">{{item.productname}}</h4>
+                <p class="weui-media-box__desc">{{item.pk_type === 3 ? '最大元宝' : '幸运号码'}}：<em>{{item.randomnumber}}</em></p>
+                <p class="weui-media-box__desc">购买用户：<span>{{item.username}}</span></p>
+                <p class="weui-media-box__desc">订单时间：{{item.announcedtime}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </weui-tab>
+  </app-infiniteloader>
+</weui-navbar>
+
+
+<app-fixed-nav></app-fixed-nav>

@@ -1,0 +1,65 @@
+.shares {
+  background: #fff;
+  overflow: visible;
+  .weui-media-box {
+    .weui-media-box__hd {
+      align-self: start;
+      img {
+        border-radius: 100%;
+      }
+    }
+    .weui-media-box__title {
+      font-size: 0.12rem;
+      line-height: 1;
+      .right {
+        color: #999;
+      }
+    }
+    .weui-media-box__desc {
+      font-size: 0.12rem;
+      line-height: 1;
+      margin-top: 0.1rem;
+      &.content {
+        font-size: 0.13rem;
+        line-height: 1.6;
+        margin-top: 0.13rem;
+      }
+    }
+    .images-box {
+      padding: 0.075rem;
+      background: #F7F7F7;
+      margin-top: 0.1rem;
+      .images {
+        .image {
+          .image-box {
+            height: 0.95rem;
+            margin: 0.075rem;
+            background-size: cover;
+          }
+        }
+      }
+    }
+    .weui-cell_link {
+      font-size: 0.12rem;
+      line-height: 1;
+      padding: 0.1rem 0rem;
+      margin-top: 0.05rem;
+      margin-bottom: -0.1rem;
+      &:before, &:after {
+        display: none;
+      }
+      .weui-cell__ft {
+        & > span {
+          margin-left: 0.2rem;
+          i, span {
+            display: inline-block;
+            vertical-align: middle;
+          }
+          i {
+            color: #D8D8D8;
+          }
+        }
+      }
+    }
+  }
+}

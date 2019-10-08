@@ -1,0 +1,42 @@
+weui-navbar,
+weui-tabbar {
+  display: block;
+}
+
+.weui-navbar {
+  position: fixed;
+}
+
+.weui-navbar__item[disabled],
+.weui-navbar__item[disabled] {
+  color: rgba(0, 0, 0, .6)
+}
+
+.weui-tab__panel {
+  > .weui-tab,
+  > weui-tab {
+    display: none;
+  }
+  > .active {
+    display: block
+  }
+}
+
+.infiniteloader {
+  .weui-tab__panel {
+    overflow: hidden;
+    .weui-infiniteloader {
+      box-sizing: border-box;
+      padding-top: 50px;
+      .weui-infiniteloader__content {
+        > .weui-tab,
+        > weui-tab {
+          display: none;
+        }
+        > .active {
+          display: block
+        }
+      }
+    }
+  }
+}

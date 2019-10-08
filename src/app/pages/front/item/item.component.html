@@ -1,0 +1,210 @@
+<app-navbar [title]="'商品详情'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="prod-info has-footer">
+  <div class="prod-nav">
+    <swiper *ngIf="spellBuyProductList" [config]="ssConfig" [index]="spellBuyProductIndex" fxFlex="auto">
+          <span [routerLink]="['/front/item',item.spellbuyProductId]" class="item-box swiper-slide"
+                [ngClass]="{'curr':item.spellbuyProductId == id}"
+                *ngFor="let item of spellBuyProductList">
+            第{{item.productPeriod}}期
+          </span>
+    </swiper>
+  </div>
+  <div *ngIf="busLatestlottery" class="curr-user flipInY animated">
+
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_appmsg">
+          <div [routerLink]="['/front/member',busLatestlottery.userid]" class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="{{config.prefix.wApi + busLatestlottery.userface}}">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">获奖者：<em>{{busLatestlottery.username}}</em></h4>
+            <p class="weui-media-box__desc">总共购买：<em>{{busLatestlottery.buynumbercount}}</em>人次</p>
+            <p class="weui-media-box__desc">揭晓时间：{{busLatestlottery.announcedtime}}</p>
+            <p class="weui-media-box__desc">购买时间：{{busLatestlottery.buytime}}</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="weui-panel__ft">
+        <a class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">{{productMap?.pk_type === 3 ? '最大元宝' : '幸运码'}}：{{busLatestlottery.randomnumber}}</div>
+          <span *ngIf="productMap?.pk_type !== 3" [routerLink]="['/front/calculation',id]" class="weui-cell__ft">查看结果</span>
+          <span *ngIf="productMap?.pk_type === 3" [routerLink]="['/front/cashback',id]" class="weui-cell__ft">返现用户列表</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="productMap?.spstatus === 2" class="now">
+    <div class="now-title">揭晓倒计时</div>
+    <countdown (finished)="onFinished()"
+               [config]="{leftTime: getTimer(productMap?.spellbuyenddate,productMap?.now) * 0.01}">$!s-ext!
+    </countdown>
+  </div>
+  <div class="prod-imgs">
+    <swiper *ngIf="productImgs" [config]="sConfig" (indexChange)="onIndexChange($event)" fxFlex="auto">
+          <span class="item-box swiper-slide" *ngFor="let item of productImgs; let i = index">
+            <img
+              src="{{config.prefix.wApi + '/productImg/imagezoom/' + item.piproductid + '/' + item.image + '' + item.imagetype}}">
+          </span>
+    </swiper>
+    <span class="tag">{{productImgIndex}}/{{productImgs?.length}}</span>
+  </div>
+
+  <div class="prod-title">{{productMap?.producttitle}}</div>
+  <div class="prod-progress">
+    <weui-progress [value]="(productMap?.spellbuycount / productMap?.user_count) * 100"
+                   [canCancel]="false"></weui-progress>
+  </div>
+  <div class="prod-status">
+    <div class="weui-flex">
+      <div class="status-price weui-flex__item">
+        价值：￥{{productMap?.spellbuyprice}}
+      </div>
+      <div class="status-progress weui-flex__item">
+        <span>
+          <em>已参与{{productMap?.spellbuycount}}</em>
+          <span>／剩余{{productMap?.user_count - productMap?.spellbuycount}}</span>
+        </span>
+      </div>
+    </div>
+    <button *ngIf="productMap?.spstatus === 1 || productMap?.spstatus === 2" weui-button [disabled]="disabled"
+            [weui-loading]="loading"
+            [weui-type]="'default'">
+      <span *ngIf="productMap?.spstatus === 2">{{statusText}}</span>
+      <span *ngIf="productMap?.spstatus === 1">已经揭晓</span>
+    </button>
+  </div>
+
+  <div *ngIf="productMap?.pk_type !== 3" class="prod-intro">
+    <div class="txt weui-flex">
+      <div class="title weui-flex__item">玩法简介</div>
+      <div [routerLink]="['/front/article/item',3]" class="more weui-flex__item">查看玩法 ></div>
+    </div>
+    <div class="img-box">
+      <img src="/assets/images/product/intro.png">
+    </div>
+  </div>
+
+  <div class="prod-extra">
+    <weui-navbar>
+      <weui-tab heading="走势图表">
+        <app-graphic *ngIf="charts?.length > 0" [userCount]="productMap?.user_count" [charts]="charts"></app-graphic>
+        <no-record *ngIf="charts?.length === 0"></no-record>
+        <a *ngIf="charts?.length > 0" [routerLink]="['/front/process',id]" class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">查看更多</div>
+          <span class="weui-cell__ft"></span>
+        </a>
+      </weui-tab>
+      <weui-tab heading="购买记录">
+        <no-record *ngIf="record?.list.length === 0"></no-record>
+        <div class="records" *ngIf="record?.list.length > 0">
+          <div *ngFor="let item of record.list" class="weui-media-box weui-media-box_appmsg">
+            <div [routerLink]="['/front/member',item.buyer]" class="weui-media-box__hd">
+              <img class="weui-media-box__thumb"
+                   src="{{config.prefix.wApi + item.faceimg}}"
+                   alt="">
+            </div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">获奖用户：<em>{{item.username}}</em> ({{item.buylocal}})</h4>
+              <p class="weui-media-box__desc">下单次数：<em>{{item.buynum}}</em>次</p>
+              <p class="weui-media-box__desc">购买时间：{{item.buydate}}</p>
+            </div>
+          </div>
+        </div>
+        <a (click)="more('record')" *ngIf="recordPage <= recordTotalPages" class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">查看更多</div>
+          <span class="weui-cell__ft"></span>
+        </a>
+      </weui-tab>
+      <!--<weui-tab heading="图文详情">
+        <article class="weui-article" [innerHTML]="productMap?.productdetail">
+        </article>
+      </weui-tab>
+      <weui-tab heading="商品评论">
+        <no-record *ngIf="comment?.shareList.length === 0"></no-record>
+        <div class="records" *ngIf="comment?.shareList.length > 0">
+          <div *ngFor="let item of comment?.shareList" class="weui-media-box weui-media-box_appmsg">
+            <div class="weui-media-box__hd">
+              <img class="weui-media-box__thumb"
+                   src="{{config.prefix.wApi + item.faceimg}}"
+                   alt="">
+            </div>
+            <div class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">{{item.username}} <span class="right"></span></h4>
+              <p class="weui-media-box__desc">第{{item.period}}件已售商品晒单</p>
+              <p class="weui-media-box__desc">{{item.sharecontent}}</p>
+              <div class="images-box">
+                <div class="images weui-grids">
+                  <div *ngFor="let img of item.shareImageList" class="image weui-grid">
+                    <div class="image-box"
+                         [ngStyle]="{'background-image' : 'url(' + config.prefix.wApi + '/UserPost/Big/' + img.images + ')'}"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="weui-cell weui-cell_link">
+                <div class="weui-cell__bd"></div>
+                <div class="weui-cell__ft">
+                  <span><i class="icon-heart"></i> <span>{{item.upcount}}点赞</span></span>
+                  <span><i class="icon-comment"></i> <span>{{item.replycount}}条评论</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a (click)="more('comment')" *ngIf="commentPage <= commentTotalPages" class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">查看更多</div>
+          <span class="weui-cell__ft"></span>
+        </a>
+      </weui-tab>-->
+    </weui-navbar>
+  </div>
+  <div *ngIf="lastBusLatestlottery" class="prev-user">
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_appmsg">
+          <div [routerLink]="['/front/member',lastBusLatestlottery.userid]" class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="{{config.prefix.wApi + lastBusLatestlottery.userface}}">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">获奖者：<em>{{lastBusLatestlottery.username}}</em></h4>
+            <p class="weui-media-box__desc">总共购买：<em>{{lastBusLatestlottery.buynumbercount}}</em>人次</p>
+            <p class="weui-media-box__desc">揭晓时间：{{lastBusLatestlottery.announcedtime}}</p>
+            <p class="weui-media-box__desc">购买时间：{{lastBusLatestlottery.buytime}}</p>
+          </div>
+
+        </div>
+      </div>
+      <!--<div class="weui-panel__ft">
+        <a class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd">幸运码：{{lastBusLatestlottery.randomnumber}}</div>
+          <span class="weui-cell__ft">查看结果</span>
+        </a>
+      </div>-->
+    </div>
+  </div>
+
+  <div class="space"></div>
+
+  <div *ngIf="productMap?.spstatus === 1" class="btns-group">
+    <a [routerLink]="['/front/item',prod?.nextSpellBuyProductId || id]" class="btn btn-primary">前往参与 最新一期正在进行中...</a>
+  </div>
+
+  <div *ngIf="productMap?.spstatus === 0" class="btns-group">
+    <div class="nav-group">
+      <a (click)="collect()" class="nav-item" [ngClass]="{'active':prod?.isCollect}">
+        <div class="weui-grid__icon">
+          <span class="icon-heart"></span>
+        </div>
+        <p class="weui-grid__label">收藏</p>
+      </a>
+    </div>
+    <a (click)="addCart(productMap?.spellbuyproductid)" class="btn btn-secondary">加入购物车</a>
+    <a (click)="addCart(productMap?.spellbuyproductid,true)" class="btn btn-primary">立即拼购</a>
+  </div>
+</div>
+
+<app-fixed-nav></app-fixed-nav>
+

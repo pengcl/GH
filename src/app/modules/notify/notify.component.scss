@@ -1,0 +1,49 @@
+.notify {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  overflow: hidden;
+  font-size: 0.12rem;
+  z-index: 1001;
+  .icon {
+    width: 0.2rem;
+    height: 0.2rem;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .weui-cell {
+    line-height: 1;
+    padding: 0.1rem;
+    .weui-cell__hd {
+      span {
+        padding: 0.04rem 0.05rem;
+        display: block;
+        background: #F26549;
+        color: #fff;
+        border-radius: 0.04rem;
+        margin-right: 0.1rem;
+      }
+    }
+    .weui-cell__bd {
+      padding: 0.04rem 0.05rem 0.04rem 0.1rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      position: relative;
+      &:before {
+        content: " ";
+        position: absolute;
+        top: -1px;
+        bottom: -1px;
+        left: 0;
+        width: 1px;
+        border-left: 1px solid #fff;
+      }
+    }
+  }
+}

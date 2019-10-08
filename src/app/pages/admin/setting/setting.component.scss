@@ -1,0 +1,40 @@
+weui-accordion {
+  margin-top: 0.15rem;
+  display: block;
+}
+
+.weui-accordion-panel {
+  margin: 10px 0;
+  background-color: #fff;
+  overflow: hidden;
+  border-radius: 2px;
+  .heading {
+    .weui-cell__ft {
+      &:after {
+        transition: all .5s ease-in;
+      }
+    }
+  }
+  .weui-cells {
+    margin-top: 0;
+    &:before {
+      display: none;
+    }
+  }
+  .weui-accordion-content {
+    transition: max-height .5s ease-in;
+  }
+}
+
+.weui-accordion-active {
+  .heading {
+    .weui-cell__ft {
+      &:after {
+        transform: rotate(135deg);
+      }
+    }
+  }
+  .weui-accordion-content {
+    max-height: 100px;
+  }
+}

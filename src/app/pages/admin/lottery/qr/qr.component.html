@@ -1,0 +1,39 @@
+<app-navbar [title]="'邀请好友'"></app-navbar>
+<div class="qr canvas-source content-scrollable">
+  <div class="qr-content">
+    <div class="tit"><em>恭喜我吧！</em>我在转盘活动中转到了：</div>
+    <div class="product">
+      <div class="product-img">
+        <img *ngIf="product" [src]="'/wApi' + product?.headimage">
+      </div>
+      <div class="product-name">{{product?.producttitle}}</div>
+    </div>
+    <div id="qrcode"></div>
+    <div class="ft">
+      <div class="txt">
+        <span>扫码参与转盘活动</span>
+        <em>本奖品需{{needNum}}人参与扫码领奖(当天有充值用户),还需扫码次数：{{needNum - likedNum}}</em>
+      </div>
+    </div>
+  </div>
+  <!--<div class="text">
+    <h2>活动规则：</h2>
+    <ol>
+      <li>新用户首次充值返10%（线下充值返现需联系线下充值客服）</li>
+      <li>新注册用户分享到朋友圈，送一次抽奖</li>
+      <li>新注册用户首次充值后分享到朋友圈，送一次抽奖</li>
+      <li>在活动时间范围内，满100元再送一次抽奖，不限次数</li>
+    </ol>
+  </div>-->
+  <a routerLink="/admin/lottery" class="go-home animated"
+     [ngClass]="{'fadeInRight':topBarShow === false,'fadeOutRight':topBarShow === true}">
+    <img src="/assets/game/mouse/img/exit.png">
+  </a>
+</div>
+<div *ngIf="poster" class="canvas-dist content-scrollable" style="display: none;">
+  <img src="{{poster}}">
+  <a routerLink="/index" class="go-home animated"
+     [ngClass]="{'fadeInRight':topBarShow === false,'fadeOutRight':topBarShow === true}">
+    <img src="/assets/game/mouse/img/exit.png">
+  </a>
+</div>

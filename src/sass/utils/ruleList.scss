@@ -1,0 +1,64 @@
+.rule-list {
+  padding: 0.2rem 0.15rem 0.16rem;
+  margin-bottom: 0.22rem;
+  .rule-tit {
+    font-size: 0.15rem;
+    line-height: 0.21rem;
+    color: #fff;
+    padding-bottom: 0.06rem;
+    text-align: center;
+    position: relative;
+    &:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: ' ';
+      position: absolute;
+      left: 10%;
+      right: 62%;
+      top: 49%;
+      height: 1px;
+      background: #fff;
+    }
+    &:after {
+      display: inline-block;
+      vertical-align: middle;
+      content: ' ';
+      position: absolute;
+      right: 10%;
+      left: 62%;
+      top: 49%;
+      height: 1px;
+      background: #fff;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .rule-txt {
+    font-size: 0.12rem;
+    line-height: 0.24rem;
+    color: #fff;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    dt {
+      float: left;
+      width: 0.18rem;
+      height: 0.18rem;
+      line-height: 0.18rem;
+      border: 1px solid #fff;
+      border-radius: 1rem;
+      text-align: center;
+      margin-top: 0.03rem;
+    }
+    dd {
+      margin-left: 0.35rem;
+      .tit {
+        font-weight: bold;
+      }
+      .txt {
+        line-height: 0.18rem;
+      }
+    }
+  }
+}

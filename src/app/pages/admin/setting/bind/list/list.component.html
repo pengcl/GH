@@ -1,0 +1,27 @@
+<app-navbar [title]="'我的分销商'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="content-scrollable has-footer">
+  <div class="weui-cells">
+    <div routerLink="/admin/setting/bind/add" class="weui-cell weui-cell_access">
+      <div class="weui-cell__hd"><img src="/assets/images/icons/round_add.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <p>绑定手机号码</p>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </div>
+  </div>
+
+  <div *ngIf="mobiles && mobiles.list.length > 0" class="phone-list">
+    <div class="weui-cells__title">已绑定的号码</div>
+    <div class="weui-cells">
+      <div *ngFor="let mobile of mobiles.list" routerLink="/admin/setting/bind/add" class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>{{mobile.phone}}</p>
+        </div>
+        <div class="weui-cell__ft">{{mobile.createtime | date : 'yyyy-MM-dd HH:mm:ss'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

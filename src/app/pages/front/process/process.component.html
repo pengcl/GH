@@ -1,0 +1,115 @@
+<app-navbar [title]="'商品详情'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="prod" class="process content-scrollable has-footer">
+  <div class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_appmsg">
+        <div [routerLink]="['/front/item',id]" class="weui-media-box__hd">
+          <img class="weui-media-box__thumb"
+               src="{{config.prefix.wApi + prod.productMap.headimage}}"
+               alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">
+            <em>(第 {{prod.productMap.productperiod}} 期)</em>{{prod.productMap.productname}}</h4>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <weui-stepper (change)="onChange($event)"
+                            [(ngModel)]="qty" [step]="1" [min]="1"
+                            [max]="prod.productMap.user_count"></weui-stepper>
+            </div>
+            <div class="weui-cell__bd">总需：<em>{{prod.productMap.user_count}}</em>人次</div>
+          </div>
+          <!--<div class="choose-num">
+            <span *ngIf="item.surplusprice >= 20" [ngClass]="{'curr':item.product_num === 20}"
+                  (click)="onChange(item.spellbuyproductid,20);item.product_num = 20">20</span>
+            <span *ngIf="item.surplusprice >= 50" [ngClass]="{'curr':item.product_num === 50}"
+                  (click)="onChange(item.spellbuyproductid,50);item.product_num = 50">50</span>
+            <span *ngIf="item.surplusprice >= 100" [ngClass]="{'curr':item.product_num === 100}"
+                  (click)="onChange(item.spellbuyproductid,100);item.product_num = 100">100</span>
+            <span *ngIf="item.surplusprice >= 200" [ngClass]="{'curr':item.product_num === 200}"
+                  (click)="onChange(item.spellbuyproductid,200);item.product_num = 200">200</span>
+            <span *ngIf="item.surplusprice >= 500" [ngClass]="{'curr':item.product_num === 500}"
+                  (click)="onChange(item.spellbuyproductid,500);item.product_num = 500">500</span>
+            <span [ngClass]="{'curr':item.product_num === item.surplusprice}"
+                  (click)="onChange(item.spellbuyproductid,item.surplusprice);item.product_num = item.surplusprice">包尾</span>
+          </div>-->
+        </div>
+      </div>
+    </div>
+    <div class="weui-panel__ft">
+      <div class="weui-btn-area">
+        <a (click)="addCart()" weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">立即下单</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="statistics weui-panel">
+    <div class="weui-panel__hd">第 {{prod.lastBusLatestlottery ? prod.lastBusLatestlottery.productperiod : 1}} 期 <span *ngIf="prod.lastBusLatestlottery" class="right">{{prod.lastBusLatestlottery.username}} 购买了 <em>{{prod.lastBusLatestlottery.buynumbercount}}</em> 人次</span></div>
+    <div class="weui-panel__bd">
+      <div class="weui-flex">
+        <div *ngFor="let item of statistics" class="weui-flex__item">
+          <em>{{item.value}}</em>
+          <span>{{item.label}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-panel__ft">
+      已售：<em>3647</em>人次 <span>|</span> 剩余：<em>384</em>人次 <span>|</span> 总需：<em>29388</em>人次
+    </div>
+  </div>
+
+  <div class="graphic weui-panel">
+    <div class="weui-panel__hd">默认20期
+      <span class="right">
+        <span>查询期数</span>
+        <span>
+          <weui-stepper class="square" (change)="setNum($event)" [(ngModel)]="total" [step]="1" [min]="1" [max]="100"></weui-stepper>
+        </span>
+      </span>
+    </div>
+    <div class="weui-panel__bd">
+      <app-graphic [userCount]="prod.productMap.user_count" [charts]="prod.charts"></app-graphic>
+    </div>
+  </div>
+
+  <div class="content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th class="period">期数</th>
+        <th class="user">中奖人</th>
+        <th class="num">中奖号码</th>
+        <th class="no">中奖位次</th>
+        <th class="count">买入次</th>
+        <th class="section">区间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of prod.charts">
+        <td class="period">{{item.productperiod}}</td>
+        <td class="user">{{item.username}}</td>
+        <td class="num">{{item.randomnumber}}</td>
+        <td class="no">{{item.buySeq}}</td>
+        <td class="count">{{item.buynumbercount}}</td>
+        <td class="section">
+          <span *ngIf="item.side === 0">头部</span>
+          <span *ngIf="item.side === 1">前部</span>
+          <span *ngIf="item.side === 2">中部</span>
+          <span *ngIf="item.side === 3">后部</span>
+          <span *ngIf="item.side === 4">尾部</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="space"></div>
+
+  <div class="btns-group">
+    <a (click)="start()" class="btn btn-secondary">{{isMonitor ? '监控中' : '开始监控'}} <i *ngIf="isMonitor" class="weui-loading"></i></a>
+    <a (click)="stop()" class="btn btn-primary">停止监控</a>
+  </div>
+
+</div>

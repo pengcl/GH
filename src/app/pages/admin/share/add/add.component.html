@@ -1,0 +1,67 @@
+<app-navbar [title]="'我要晒单'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="content-scrollable">
+  <form [formGroup]="shareForm">
+    <div *ngIf="trade" class="weui-panel weui-panel_access">
+      <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd"><img src="{{config.prefix.wApi + trade.headimage}}" alt=""></div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title">{{trade.productname}}</h4>
+            <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta"><em>￥{{trade.buyCount}}</em></li>
+              <li class="right weui-media-box__info__meta"><span>{{trade.announcedtime}}</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="weui-media-box weui-media-box_small-appmsg">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':shareForm.get('content').invalid && isSubmit}">
+              <div class="weui-cell__bd">
+                <textarea formControlName="content" class="weui-textarea" placeholder="快来分享您中奖的心情吧！" rows="3"></textarea>
+                <!--<div class="weui-textarea-counter"><span>{{shareForm.get('content').value.length}}</span>/200</div>-->
+              </div>
+            </div>
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':shareForm.get('imageNames').invalid && isSubmit}">
+              <div class="weui-cell__bd">
+                <div class="weui-uploader">
+                  <!--<div class="weui-uploader__hd">
+                    <p class="weui-uploader__title">上传相册</p>
+                    <div class="weui-uploader__info">{{uploader?.uploadedCount}}/{{uploader?.queue?.length}}</div>
+                  </div>-->
+                  <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files">
+                      <li (click)="onGallery(item)" class="weui-uploader__file" *ngFor="let item of uploader.queue"
+                          [weui-thumb]="item._file"
+                          [ngClass]="{'weui-uploader__file_status': item.isError || item.isUploading}">
+                        <div class="weui-uploader__file-content" *ngIf="item.isUploading">{{item.progress}}%</div>
+                        <div class="weui-uploader__file-content" *ngIf="item.isError">
+                          <i class="weui-icon-warn"></i>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="weui-uploader__input-box">
+                      <input class="weui-uploader__input" type="file" accept="image/*" multiple
+                             [weui-uploader-file]="uploader">
+                    </div>
+                  </div>
+                </div>
+                <!--<app-gallery [imgs]="img" [(show)]="imgShow" (delete)="onDel($event)"></app-gallery>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <a (click)="onSubmit()" weui-button [weui-type]="'primary'" [disabled]="shareForm.invalid"
+              [weui-loading]="loading">
+        确定
+      </a>
+    </div>
+  </form>
+
+  <weui-gallery [imgs]="img" [(show)]="imgShow" (delete)="onDel($event)"></weui-gallery>
+</div>

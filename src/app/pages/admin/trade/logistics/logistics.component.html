@@ -1,0 +1,67 @@
+<app-navbar [title]="'物流信息'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="logistics" class="logistics content-scrollable has-footer">
+  <div class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb"
+               src="{{config.prefix.wApi + logistics.bl.productimg}}"
+               alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title"><em>(第{{logistics.bl.productperiod}}期)</em>{{logistics.bl.productname}}</h4>
+          <p class="price weui-media-box__desc">商品价格：<em>￥{{logistics.bl.productprice}}</em></p>
+          <p class="count weui-media-box__desc">本期参与：{{logistics.bl.buynumbercount}}/人次</p>
+          <p class="user weui-media-box__desc" style="padding-left: 1em">幸运者：<em>{{logistics.bl.username}}</em></p>
+          <p class="lucky weui-media-box__desc">{{logistics.pk_type === 3 ? '最大元宝' : '幸运号码'}}：<em>{{logistics.bl.randomnumber}}</em></p>
+          <!--<div class="weui-flex">
+            <div class="price weui-flex__item">商品价格：<em>￥{{logistics.bl.productprice}}</em></div>
+            <div class="price weui-flex__item">本期专享：<em>￥{{logistics.bl.productprice}}</em></div>
+            <div class="price weui-flex__item">专享者：<em>￥{{logistics.bl.productprice}}</em></div>
+            <div class="price weui-flex__item">幸运号码：<em>￥{{logistics.bl.productprice}}</em></div>
+            &lt;!&ndash;<div class="date weui-flex__item">{{logistics.bl.announcedtime}}</div>&ndash;&gt;
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="logistics.oda" class="weui-panel">
+    <div class="weui-panel__hd">收件人信息 (确认地址时间：<em>{{logistics.bl.addressSubmitTime | date : 'yyyy-MM-dd HH:mm:ss'}}</em>)</div>
+    <div class="weui-form-preview__bd">
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">收件人</label>
+        <span class="weui-form-preview__value">{{logistics.oda.consignee}} {{logistics.oda.phone}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">地址</label>
+        <span class="weui-form-preview__value">{{logistics.oda.address}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">订单号</label>
+        <span class="weui-form-preview__value">{{logistics.bl.orderNo}}</span>
+      </div>
+      <div *ngIf="logistics.company" class="weui-form-preview__item">
+        <label class="weui-form-preview__label">物流公司</label>
+        <span class="weui-form-preview__value">{{logistics.company}} (<em *ngIf="logistics.oda.expressno">{{logistics.oda.expressno}}</em>)</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="logistics.deliveredInfos?.length > 0" class="logistics-info weui-panel">
+    <div class="weui-panel__hd">物流信息</div>
+    <div class="weui-panel__bd">
+      <div *ngFor="let item of logistics.deliveredInfos;let i = index" class="weui-media-box weui-media-box_appmsg"
+           [ngClass]="{'first':i === 0}">
+        <div class="weui-media-box__hd">
+          <i></i>
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{item.context}}</h4>
+          <p class="weui-media-box__desc">{{item.ftime}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

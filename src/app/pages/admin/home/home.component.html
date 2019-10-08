@@ -1,0 +1,185 @@
+<app-navbar [title]="'个人中心'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="userInfo" class="home-content content-scrollable has-footer">
+  <div class="userinfo">
+    <img class="userinfo-avatar" src="{{config.prefix.wApi + userInfo.faceimg}}"/>
+    <div class="userinfo-nickname">{{userInfo.username}}</div>
+    <div class="userinfo-service"><span class="name">{{userInfo.phone}}</span><span class="level">青铜会员</span></div>
+    <span (click)="sign()" class="sign"><i class="icon-edit"></i> {{userInfo.isSign === 2 ? '已签到' : '每日签到'}}</span>
+  </div>
+  <div class="menu">
+    <div class="status">
+      <div class="weui-flex">
+        <div class="weui-flex__item">
+          <em>￥{{userInfo.balance}}</em>
+          <span>余额</span>
+        </div>
+        <div class="weui-flex__item">
+          <em>{{userInfo.commissionpoints}}</em>
+          <span>福分</span>
+        </div>
+        <div routerLink="/admin/commissions" class="weui-flex__item">
+          <em>￥{{userInfo.commissionbalance}}</em>
+          <span>佣金</span>
+        </div>
+        <div routerLink="/admin/account/index" class="weui-flex__item">
+          <em>￥{{userInfo.walletBalance}}</em>
+          <span>钱包</span>
+        </div>
+        <!--<div class="weui-flex__item">
+          <span routerLink="/admin/account/fund/add" class="recharge">充值</span>
+        </div>-->
+      </div>
+    </div>
+
+    <!-- usertype !== 3 start -->
+
+    <div *ngIf="userInfo.usertype !== 3 && userInfo.usertype !== 4" class="menu-lists">
+      <div class="menu-list">
+        <div class="weui-grids">
+          <div routerLink="/admin/flow" class="weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/account.png">
+            </div>
+            <p class="weui-grid__label">账号明细</p>
+          </div>
+          <div routerLink="/admin/trade/list" class="weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/record.png">
+            </div>
+            <p class="weui-grid__label">购物记录</p>
+          </div>
+          <div routerLink="/admin/trade/purchased" class="nrb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/goods.png">
+            </div>
+            <p class="weui-grid__label">已获商品</p>
+          </div>
+          <div routerLink="/admin/share/list" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/shareOrder.png">
+            </div>
+            <p class="weui-grid__label">我的晒单</p>
+          </div>
+          <div routerLink="/admin/setting/address" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/address.png">
+            </div>
+            <p class="weui-grid__label">地址管理</p>
+          </div>
+          <!--<div class="nrb nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/gift.png">
+            </div>
+            <p class="weui-grid__label">福分兑换</p>
+          </div>-->
+        </div>
+      </div>
+
+      <div class="menu-list">
+        <div class="weui-grids">
+          <div routerLink="/admin/invite/index" class="weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/share.png">
+            </div>
+            <p class="weui-grid__label">分享有礼</p>
+          </div>
+          <div (click)="contact()" class="weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/contact.png">
+            </div>
+            <p class="weui-grid__label">联系客服</p>
+          </div>
+          <div routerLink="/admin/setting" class="nrb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/setting.png">
+            </div>
+            <p class="weui-grid__label">账户设置</p>
+          </div>
+          <div routerLink="/admin/collect" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/collection.png">
+            </div>
+            <p class="weui-grid__label">我的收藏</p>
+          </div>
+          <!--<div routerLink="/admin/lottery" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/lottery.png">
+            </div>
+            <p class="weui-grid__label">大转盘</p>
+          </div>-->
+        </div>
+      </div>
+    </div>
+
+    <!-- usertype !== 3 end -->
+
+    <!-- usertype === 3 || userInfo.usertype === 4 start -->
+
+    <div *ngIf="userInfo.usertype === 3 || userInfo.usertype === 4" class="menu-lists">
+      <div class="menu-list">
+        <div class="weui-grids">
+          <div routerLink="/admin/flow" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/account.png">
+            </div>
+            <p class="weui-grid__label">账号明细</p>
+          </div>
+          <!--<div routerLink="/admin/dashboard/search" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/recharge.png">
+            </div>
+            <p class="weui-grid__label">会员管理</p>
+          </div>-->
+          <!--<div routerLink="/admin/dashboard/bind/list" class="nrb nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/mobile.png">
+            </div>
+            <p class="weui-grid__label">绑定手机号</p>
+          </div>-->
+        </div>
+      </div>
+
+      <div class="menu-list">
+        <div class="weui-grids">
+          <div routerLink="/admin/invite/index" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/share.png">
+            </div>
+            <p class="weui-grid__label">分享有礼</p>
+          </div>
+          <div (click)="contact()" class="nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/contact.png">
+            </div>
+            <p class="weui-grid__label">联系客服</p>
+          </div>
+          <div routerLink="/admin/setting" class="nrb nbb weui-grid">
+            <div class="weui-grid__icon">
+              <img src="/assets/images/icons/admin/setting.png">
+            </div>
+            <p class="weui-grid__label">账户设置</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- usertype === 3 end -->
+
+  </div>
+  <div class="weui-footer">
+    <p class="weui-footer__text">客服上班时间：<em>09:00 - 18:00</em></p>
+    <p class="weui-footer__text">Copyright © 2008-2018 <em>{{config.webHost.replace("http://","")}}</em></p>
+    <p class="weui-footer__links">
+      <a (click)="logout()" class="weui-footer__link">退出登录</a>
+    </p>
+  </div>
+  <span routerLink="/admin/account/fund/add" class="recharge">充值</span>
+</div>
+
+<weui-mask backdrop="true" #mask>
+  <div *ngIf="customerQrCode" class="qr">
+    <img src="{{config.prefix.wApi + customerQrCode}}">
+  </div>
+</weui-mask>

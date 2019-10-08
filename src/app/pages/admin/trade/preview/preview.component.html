@@ -1,0 +1,34 @@
+<app-navbar [title]="'物流信息'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="logistics" class="logistics content-scrollable has-footer">
+  <div class="weui-form-preview">
+    <div class="weui-form-preview__hd">
+      <label class="weui-form-preview__label">付款金额</label>
+      <em class="weui-form-preview__value">¥{{logistics.bl.productprice}}</em>
+      <span class="return-money">回收价：¥{{returnMoney}}</span>
+    </div>
+    <div class="weui-form-preview__bd">
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">商品</label>
+        <span class="weui-form-preview__value"><em>(第{{logistics.bl.productperiod}}期)</em>{{logistics.bl.productname}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">本期参与</label>
+        <span class="weui-form-preview__value">{{logistics.bl.buynumbercount}}/人次</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">幸运者</label>
+        <span class="weui-form-preview__value">{{logistics.bl.username}}</span>
+      </div>
+      <div class="weui-form-preview__item">
+        <label class="weui-form-preview__label">幸运号码</label>
+        <span class="weui-form-preview__value">{{logistics.bl.randomnumber}}</span>
+      </div>
+    </div>
+    <div class="weui-form-preview__ft">
+      <a (click)="back()" class="weui-form-preview__btn weui-form-preview__btn_default" href="javascript:">返回</a>
+      <button (click)="submit()" class="weui-form-preview__btn weui-form-preview__btn_primary" href="javascript:">确认回收</button>
+    </div>
+  </div>
+</div>

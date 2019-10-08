@@ -1,0 +1,193 @@
+<app-navbar [title]="'迎国庆，砸金蛋'"></app-navbar>
+<div class="content-scrollable">
+  <section class="stage">
+    <div class="stage-bg">
+      <img src="/assets/game/egg/stageBg.jpg">
+    </div>
+    <div class="eggs-container">
+      <div class="cube on">
+        <div class="plane one">
+          <div class="egg-warp">
+            <div (click)="hit($event,0)" class="egg" [ngClass]="{'clicked':prizeNum === 0}"></div>
+          </div>
+        </div>
+        <div class="plane two">
+          <div class="egg-warp">
+            <div (click)="hit($event,1)" class="egg" [ngClass]="{'clicked':prizeNum === 1}"></div>
+          </div>
+        </div>
+        <div class="plane three">
+          <div class="egg-warp">
+            <div (click)="hit($event,2)" class="egg" [ngClass]="{'clicked':prizeNum === 2}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span (click)="play()" class="audio" [ngClass]="{'playing' : audioPlaying}">
+      <img src="/assets/game/egg/music_{{audioPlaying ? 'on' : 'off'}}.png">
+    </span>
+    <span (click)="showOverlay()" class="rule">
+      <img src="/assets/game/egg/rule.png">
+    </span>
+
+    <div class="game-info">
+      <div class="weui-panel weui-panel_access">
+        <div class="weui-panel__hd">
+          奖品池 <span *ngIf="hasLottery" class="right" (click)="getRecords()">中奖记录 ></span>
+        </div>
+        <div class="weui-panel__bd">
+          <div class="weui-media-box">
+            <div class="new-content">
+              <div class="weui-grids">
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/1.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/2.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/3.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/4.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/5.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/6.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/7.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+                <div class="weui-grid">
+                  <div class="weui-grid__box">
+                    <div class="weui-grid__icon">
+                      <img alt="" src="/assets/game/egg/goods/8.jpg">
+                    </div>
+                    <p class="weui-grid__label"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-overlay>
+    <div class="content-scrollable">
+      <div class="rule-list">
+        <div class="rule-tit"><span>转盘说明</span></div>
+        <dl class="rule-txt">
+          <dt>1</dt>
+          <dd><p class="txt">活动时间10月1号-10月7号</p></dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>2</dt>
+          <dd>
+            <p class="txt">活动期间，当天有充值即可参与砸金蛋活动</p>
+          </dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>3</dt>
+          <dd>
+            <p class="txt">砸金蛋时间为当天晚上20点至22点</p>
+          </dd>
+        </dl>
+        <dl class="rule-txt">
+          <dt>4</dt>
+          <dd>
+            <p class="txt">砸金蛋砸到实物需要注册用户帮忙扫码才能领取
+              <!--首次充值之后，单次满100元再送一次，不限次数，例如：单词充1000送10次（活动{{sysConfig?.acticityEggsBeginDate | date : 'yyyy-MM-dd'}}至{{sysConfig?.activityEggsEndDate | date : 'yyyy-MM-dd'}}零时截止）--></p>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="btns-group">
+      <a (click)="back()" class="btn-twitter">返回</a>
+    </div>
+  </app-overlay>
+
+  <div class="result-box animated" [ngClass]="{'flipInY':resultBoxShow === true,'flipOutY':resultBoxShow === false}">
+    <div class="resule-gift-box">
+      <div class="resule-light"></div>
+      <div class="luck-container">
+        <p class="resule-gift-luck">恭喜你获得了</p>
+
+        <div class="result-gift-img">
+          <img class="slave-img" src="//hdg.faisys.com/image/gift.png">
+        </div>
+
+
+        <div class="resule-gift-foot">
+          <p class="resule-gift-rank"><span class="rank">{{lottery?.productName}}</span></p>
+          <!--<p class="resule-gift-goods"><span class="goods">价值100元礼品</span></p>-->
+        </div>
+
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <a (click)="restart()" class="weui-btn weui-btn_primary">再来一次</a>
+            <a (click)="onShare({targetTips:'来分享好友吧',targetContent:'从分享链接注册的用户都将成为您的好友'})"
+               class="weui-btn weui-btn_default">分享</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="failed-box" style="display: none">
+    <div class="failed-img">
+      <img src="/assets/game/egg/faiI.png">
+    </div>
+    <div class="weui-msg__opr-area">
+      <p class="weui-btn-area">
+        <a href="javascript:history.back();" class="weui-btn weui-btn_primary">再来一次</a>
+        <a href="javascript:history.back();" class="weui-btn weui-btn_default">关注我们</a>
+      </p>
+    </div>
+  </div>
+
+  <img *ngIf="clicked" class="hammer" [ngClass]="{'clicked':clicked}" [ngStyle]="{'left':x + 'px','top':y + 'px'}"
+       src="/assets/game/egg/hammer.png"/>
+</div>
+
+<audio id="audio" #audio autoplay="autoplay" preload loop="loop">
+  <source src="/assets/game/egg/audio/game_music.mp3" type="audio/mp3">
+</audio>

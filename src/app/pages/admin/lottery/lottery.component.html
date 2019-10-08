@@ -1,0 +1,147 @@
+<app-navbar [title]="'转盘抽奖'"></app-navbar>
+<app-tabbar></app-tabbar>
+<!--<div class="content-scrollable">
+  <span class="error-info">转盘活动已经下线，<a routerLink="/">返回主页></a></span>
+</div>-->
+
+<div class="content-scrollable has-footer">
+    <h1 class="title"><img src="/assets/images/rotary/title.png"></h1>
+    <div *ngIf="winner" class="notes">
+      <div class="weui-cell">
+        <div class="weui-cell__hd">
+          <img style="width: 0.2rem;margin-right: 0.1rem;display: block" src="/assets/images/rotary/volume-up.png">
+        </div>
+        <div class="weui-cell__bd">恭喜 <em>{{winner.username}}</em> 抽中 <em>{{winner.productname}}</em> </div>
+      </div>
+    </div>
+    <div *ngIf="lotteries" class="roulette">
+      <div class="roulette-box">
+        <ul class="roulette-lists weui-grids">
+          <li class="roulette-item weui-grid">
+            <div id="roulette-0" [ngClass]="{'curr' : index === 0}" class="roulette-0 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[0].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[0].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-1" [ngClass]="{'curr' : index === 1}" class="roulette-1 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[1].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[1].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-2" [ngClass]="{'curr' : index === 2}" class="roulette-2 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[2].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[2].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-7" [ngClass]="{'curr' : index === 7}" class="roulette-7 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[7].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[7].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-8" class="roulette-8 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="txt-start" (click)="start()">立即<br>抽奖</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-3" [ngClass]="{'curr' : index === 3}" class="roulette-3 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[3].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[3].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-6" [ngClass]="{'curr' : index === 6}" class="roulette-6 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[6].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[6].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-5" [ngClass]="{'curr' : index === 5}" class="roulette-5 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[5].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[5].productname}}</div>
+              </div>
+            </div>
+          </li>
+          <li class="roulette-item weui-grid">
+            <div id="roulette-4" [ngClass]="{'curr' : index === 4}" class="roulette-4 roulette-item-box">
+              <div class="roulette-item-content">
+                <div class="img">
+                  <img src="{{config.prefix.wApi + lotteries[4].productimgurl}}">
+                </div>
+                <div class="title">{{lotteries[4].productname}}</div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="roulette-tips weui-flex">
+      <div class="txt-l weui-flex__item">剩余转盘机会：{{userInfo?.turntableNum ? userInfo?.turntableNum : 0}}次</div>
+      <div class="txt-r weui-flex__item"><a (click)="onShare({targetTips:'来邀请好友吧',targetContent:'从分享链接注册的用户都将成为您的好友'})">邀请好友获取更多次数 ></a></div>
+    </div>
+
+    <div class="rule-list">
+      <div class="rule-tit"><span>转盘说明</span></div>
+      <dl class="rule-txt">
+        <dt>1</dt>
+        <dd><p class="txt">活动期间，当天充值（最低21元）后在转盘页或者个人中心分享页面后送一次转盘机会；</p></dd>
+      </dl>
+      <dl class="rule-txt">
+        <dt>2</dt>
+        <dd>
+          <p class="txt">本次活动奖品以转盘上的奖品为准，商城充值券和积分将直接充值到账户上；</p>
+        </dd>
+      </dl>
+      <dl class="rule-txt">
+        <dt>3</dt>
+        <dd>
+          <p class="txt">通过恶意注册或者其他不正当手段参与本活动，将取消其参与及领奖资格，且有权利追回其通过活动活动奖品；</p>
+        </dd>
+      </dl>
+      <dl class="rule-txt">
+        <dt>4</dt>
+        <dd>
+          <p class="txt">本公司对本次活动拥有最终解释权；</p>
+        </dd>
+      </dl>
+      <!--<dl class="rule-txt">
+        <dt>5</dt>
+        <dd>
+          <p class="txt">推荐他人注册并消费，赠送一次</p>
+        </dd>
+      </dl>-->
+    </div>
+
+</div>

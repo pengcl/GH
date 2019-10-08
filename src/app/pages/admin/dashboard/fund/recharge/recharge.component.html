@@ -1,0 +1,52 @@
+<app-navbar [show]="true" [title]="'账户充值'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="account-fund content-scrollable has-nav">
+  <div class="status">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">您的当前余额 (元)</div>
+      <div class="weui-cell__ft">￥{{userInfo?.balance}}</div>
+    </div>
+  </div>
+
+  <form novalidate [formGroup]="rechargeForm">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':rechargeForm.get('phone').invalid && isSubmit}">
+        <div class="weui-cell__hd">
+          <span class="weui-label">手机号码</span>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="tel" formControlName="phone" (input)="inputChange(rechargeForm.get('phone').value)" placeholder="请输入您的手机号码">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-icon-warn"></span>
+        </div>
+      </div>
+      <div *ngIf="phonesShow && phones?.length > 0" class="phone-list-container">
+        <div class="phone-list-content weui-cells">
+          <div (click)="setPhone(phone.phone)" *ngFor="let phone of phones" class="weui-cell">
+            <div class="weui-cell__bd">
+              <p>{{phone.phone}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':rechargeForm.get('amount').invalid && isSubmit}">
+        <div class="weui-cell__hd">
+          <span class="weui-label">充值金额</span>
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" formControlName="amount" placeholder="请输入充值金额">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-icon-warn"></span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells__tips">充值成功后可以在双方的账户明细查看充值记录</div>
+
+    <div class="weui-btn-area">
+      <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary" (click)="recharge()">立即充值</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,30 @@
+.status {
+  background-color: #fffabd;
+  border-bottom: 1px solid #f26341;
+  .weui-flex {
+    .weui-flex__item {
+      text-align: center;
+      align-self: center;
+      padding: 0.15rem 0;
+
+      em, span {
+        display: block;
+        line-height: 1;
+      }
+
+      em {
+        color: #333;
+        font-size: 0.14rem;
+        margin-bottom: 0.05rem;
+      }
+
+      span {
+        font-size: 0.12rem;
+        color: #333;
+      }
+    }
+  }
+}
+.weui-cells {
+  font-size: 0.15rem;
+}

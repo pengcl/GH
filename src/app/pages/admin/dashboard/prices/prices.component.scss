@@ -1,0 +1,23 @@
+.prices {
+  background: #f7f7f7;
+  .weui-media-box__title {
+    font-size: 0.13rem;
+    display: -webkit-box;
+    white-space: normal;
+    line-height: 1.6;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .weui-cells {
+    font-size: 0.14rem;
+    &:before, &:after {
+      display: none;
+    }
+    .weui-cell {
+      padding: 0.15rem 0.15rem;
+      input {
+        text-align: right;
+      }
+    }
+  }
+}

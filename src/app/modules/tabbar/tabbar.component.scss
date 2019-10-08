@@ -1,0 +1,16 @@
+.weui-tabbar {
+  z-index: 1001;
+  position: fixed;
+}
+.weui-tabbar__item {
+  padding: 8px 0 3px;
+  .weui-tabbar__icon {
+    width: 21px;
+    height: 21px;
+  }
+  &.weui-bar__item_on {
+    .weui-tabbar__label {
+      color: #F26549;
+    }
+  }
+}

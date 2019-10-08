@@ -1,0 +1,33 @@
+<app-navbar [show]="true" [title]="'我的分销商'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="content-scrollable has-nav has-footer">
+  <div class="weui-cells">
+    <div routerLink="/admin/dashboard/bind/add" class="weui-cell weui-cell_access">
+      <div class="weui-cell__hd"><img src="/assets/images/icons/round_add.png" alt=""
+                                      style="width:20px;margin-right:5px;display:block"></div>
+      <div class="weui-cell__bd">
+        <p>绑定手机号码</p>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </div>
+  </div>
+
+
+  <div *ngIf="mobiles && mobiles.list.length > 0" class="phone-list weui-panel weui-panel_access">
+    <div class="weui-panel__hd">已绑定的号码</div>
+    <div class="weui-panel__bd">
+      <a *ngFor="let mobile of mobiles.list" class="weui-media-box weui-media-box_appmsg">
+        <!--<div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb" src="/assets/images/icons/admin/people_list.png" alt="">
+        </div>-->
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{mobile.remark}} <span (click)="remove(mobile.id)" class="right">[<em>删除</em>]</span><span [routerLink]="['/admin/dashboard/bind/edit',mobile.id]" class="right">[<i>编辑</i>]</span>
+          </h4>
+          <p class="weui-media-box__desc">{{mobile.phone}}</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>

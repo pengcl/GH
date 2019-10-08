@@ -1,0 +1,39 @@
+<app-navbar [title]="'最新晒单'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="items" class="shares content-scrollable">
+  <app-msg *ngIf="items.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div *ngIf="items.length > 0" class="weui-panel">
+    <div class="weui-panel__bd">
+      <div *ngFor="let item of items;" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb"
+               src="{{config.prefix.wApi + item.faceimg}}"
+               alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">第{{item.period}}件已售商品晒单 <span class="right">{{item.sharedate}}</span></h4>
+          <!--<p class="date weui-media-box__desc">{{item.sharedate}}</p>-->
+          <p class="content weui-media-box__desc">{{item.sharecontent}} <a [routerLink]="['/admin/share/item',item.uid]">查看更多></a></p>
+          <div class="images-box">
+            <div class="images weui-grids">
+              <div *ngFor="let img of item.shareImageList" class="image weui-grid">
+                <div class="image-box" [ngStyle]="{'background-image' : 'url(' + config.prefix.wApi + '/UserPost/Big/' + img.images + ')'}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="weui-cell weui-cell_link">
+            <div class="weui-cell__bd"></div>
+            <div class="weui-cell__ft">
+              <span><i class="icon-heart"></i> <span>{{item.upcount}}点赞</span></span>
+              <span><i class="icon-comment"></i> <span>{{item.replycount}}条评论</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-fixed-nav></app-fixed-nav>

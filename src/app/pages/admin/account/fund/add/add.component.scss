@@ -1,0 +1,65 @@
+.account-fund {
+  .status {
+    background-image: linear-gradient(-180deg, #FFB366 0%, #F26549 100%);
+    border-radius: 0.04rem;
+    font-size: 0.15rem;
+    color: #fff;
+    margin: 0.2rem 0.15rem;
+    padding: 0.12rem 0;
+    .weui-cell {
+      padding: 0.1rem 0.15rem;
+      .weui-cell__bd {
+        font-size: 0.12rem;
+      }
+      .weui-cell__ft {
+        color: #fff;
+      }
+    }
+  }
+  .weui-cells__title {
+    font-size: 0.12rem;
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+  }
+
+  .weui-grids {
+    margin: 0 0.1rem;
+    .weui-grid__box {
+      margin: 0.05rem;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 0.15rem;
+      padding: 0.2rem 0;
+      border-radius: 0.04rem;
+      box-sizing: border-box;
+      line-height: 1;
+      &.curr {
+        border: 1px solid #F26341;
+        color: #F26341;
+      }
+    }
+  }
+
+  .pay-types {
+    background: none;
+    font-size: 0.13rem;
+    .weui-cell {
+      padding: 0.15rem;
+    }
+  }
+
+  .weui-btn-area {
+    margin: 0.35rem 0.15rem;
+  }
+}
+
+weui-mask {
+  .qr {
+    width: 80%;
+    margin: 0 auto;
+    img {
+      width: 100%;
+      display: block;
+    }
+  }
+}

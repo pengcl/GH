@@ -1,0 +1,218 @@
+<app-navbar [title]="'首页'"></app-navbar>
+<app-tabbar></app-tabbar>
+<app-infiniteloader [scrollTo]="scrollToOffsetTop" class="index" (loadmore)="onLoadMore($event)"
+                    (arrived)="onArrived($event)" #comp>
+  <div class="banner">
+    <swiper *ngIf="indexData?.indexImgs" [config]="sConfig" [index]="1" fxFlex="auto">
+          <span [routerLink]="[slide.prourl]" class="img-box swiper-slide" *ngFor="let slide of indexData.indexImgs">
+            <img src="{{config.prefix.wApi + slide.proimg}}">
+          </span>
+    </swiper>
+  </div>
+  <div class="menus">
+    <div class="weui-flex">
+      <a href="http://www.pgyer.com/gRGJ" class="weui-flex__item">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/index/icons/download.png" alt="">
+        </div>
+        <p class="weui-grid__label">App下载</p>
+      </a>
+      <div routerLink="/front/article/list" class="weui-flex__item">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/index/icons/guide.png" alt="">
+        </div>
+        <p class="weui-grid__label">常见问题</p>
+      </div>
+      <div routerLink="/front/share" class="weui-flex__item">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/index/icons/order.png" alt="">
+        </div>
+        <p class="weui-grid__label">最新晒单</p>
+      </div>
+      <div (click)="contact()" class="weui-flex__item">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/index/icons/service.png" alt="">
+        </div>
+        <p class="weui-grid__label">联系客服</p>
+      </div>
+      <div routerLink="/admin/account/fund/add" class="weui-flex__item">
+        <div class="weui-grid__icon">
+          <img src="/assets/images/index/icons/recharge.png" alt="">
+        </div>
+        <p class="weui-grid__label">账户充值</p>
+      </div>
+    </div>
+  </div>
+  <div class="news">
+    <div routerLink="/front/article/notices" class="weui-cell weui-cell_access">
+      <div class="weui-cell__hd"><span>云购头条</span></div>
+      <div class="weui-cell__bd">
+        <marquee scrollamount="2">
+          <span class="swiper-slide">{{indexData?.busNotice.content}}</span>
+        </marquee>
+      </div>
+      <div class="weui-cell__ft"></div>
+    </div>
+  </div>
+
+  <div *ngIf="sysConfig?.advert1OnOff === 0" class="ad">
+    <a *ngIf="sysConfig.advert1Url" href="{{sysConfig.advert1Url}}" class="img-box">
+      <img src="{{config.prefix.wApi + sysConfig.advert1Image}}">
+    </a>
+    <span *ngIf="!sysConfig.advert1Url" class="img-box">
+      <img src="{{config.prefix.wApi + sysConfig.advert1Image}}">
+    </span>
+  </div>
+
+  <div class="new">
+    <div class="weui-panel weui-panel_access">
+      <div class="weui-panel__hd">最新揭晓 <span routerLink="/front/new" class="right">查看更多 ></span></div>
+      <div class="weui-panel__bd">
+        <div class="weui-media-box">
+          <div class="new-content">
+            <div class="weui-grids">
+
+              <div [routerLink]="['/front/item',item.spellbuyproductid || item.lotteryproductid]"
+                   *ngFor="let item of lotteries" class="animated {{item.animate}} weui-grid">
+                <div class="weui-grid__box">
+                  <div class="weui-grid__icon">
+                    <img src="{{config.prefix.wApi + (item.productimg ? item.productimg : item.lotteryproductimg)}}"
+                         alt="">
+                  </div>
+                  <p class="weui-grid__label">
+                    <span *ngIf="item.announcedtime">获奖者</span>
+                    <span *ngIf="!item.announcedtime">倒计时</span>
+                  </p>
+                  <p class="name">
+                    <span *ngIf="item.announcedtime">{{item.username}}</span>
+                    <span *ngIf="!item.announcedtime">
+                      <span *ngIf="item.lotteryid === soonItem?.lotteryid">揭晓中</span>
+                      <countdown *ngIf="item.lotteryid !== soonItem?.lotteryid" (finished)="onFinished(item)"
+                                 [config]="{leftTime: getTimer(item.lotteryproductenddate,item.now,item.spellbuyproductid) * 0.01}">$!s-ext!</countdown>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<div routerLink="/front/reds" class="img-box">
+    <img src="/assets/images/index/red-banner.jpg">
+  </div>-->
+
+  <div *ngIf="sysConfig?.advert2OnOff === 0" class="ad" style="margin-top: 0.15rem">
+    <a *ngIf="sysConfig.advert2Url" href="{{sysConfig.advert2Url}}" class="img-box">
+      <img src="{{config.prefix.wApi + sysConfig.advert2Image}}">
+    </a>
+    <span *ngIf="!sysConfig.advert2Url" class="img-box">
+      <img src="{{config.prefix.wApi + sysConfig.advert2Image}}">
+    </span>
+  </div>
+
+  <div #scrollTo class="goods">
+    <div class="weui-panel weui-panel_access">
+      <div class="goods-menu weui-panel__hd" [ngClass]="{'fixed':menuFixed}">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <div class="weui-flex">
+              <div class="weui-flex__item">
+                <span (click)="setOrder('soonOpen')" class="label"
+                      [ngClass]="{'curr':ord === 'soonOpen'}">即将获得</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('new')" class="label" [ngClass]="{'curr':ord === 'new'}">最新发布</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('hot')" class="label" [ngClass]="{'curr':ord === 'hot'}">新品推荐</span>
+              </div>
+              <div class="weui-flex__item">
+                <span (click)="setOrder('maxPrice')" class="label"
+                      [ngClass]="{'curr':ord === 'maxPrice' || ord === 'minPrice'}">价格优先</span>
+              </div>
+            </div>
+          </div>
+          <div class="weui-cell__ft"><img (click)="typeShow = !typeShow" class="icon"
+                                          src="/assets/images/icons/apps.png"></div>
+        </div>
+        <div *ngIf="typeShow" class="type-list">
+          <div class="weui-grids">
+            <div class="weui-grid">
+              <span (click)="setType('')" class="type-box"><span>全部</span></span>
+            </div>
+            <div *ngFor="let type of typeList" class="weui-grid">
+              <span class="type-box" [ngClass]="{'selected':type.selected}"><span (click)="setType(type)">{{type.typename}}</span><em
+                (click)="type.selected = !type.selected;onSelectedType(type);">{{type.num}}</em></span>
+            </div>
+          </div>
+          <div class="favorites weui-flex">
+            <div class="my weui-flex__item">
+              <span routerLink="/admin/collect">我的收藏</span>
+            </div>
+            <div class="add weui-flex__item">
+              <span (click)="addCarts()">一键添加</span>
+            </div>
+            <div class="tips weui-flex__item">
+              <span>{{typeSelectedCount ? '已选' + typeSelectedCount + '件' : '最多200件'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-panel__bd">
+        <div class="weui-media-box">
+          <div class="weui-grids">
+            <div *ngFor="let item of goods?.list" class="weui-grid">
+              <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-grid__icon">
+                <div class="img-box">
+                  <img src="{{config.prefix.wApi + item.headimage}}" alt="">
+                </div>
+                <span class="icon-heart {{item.incollect ? 'collected' : ''}}"
+                      (click)="item.incollect = item.incollect ? 0 : 1;collect(item,$event)"></span>
+              </div>
+              <p class="weui-grid__label">(第{{item.productperiod || 1}}期){{item.productname}}</p>
+              <div class="weui-flex">
+                <div class="price weui-flex__item">价值：{{item.spellbuyprice}}</div>
+                <div class="store weui-flex__item">剩余{{item.pluscount}}</div>
+              </div>
+              <weui-progress [value]="item.bili" [canCancel]="false"></weui-progress>
+              <div class="action weui-flex">
+                <div (click)="addCart(item.spellbuyproductid,$event,true)" class="buy weui-flex__item">立即拼购</div>
+                <div class="cart weui-flex__item">
+                  <img (click)="addCart(item.spellbuyproductid,$event)"
+                       src="/assets/images/icons/shoppingCart.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-infiniteloader>
+
+<app-fixed-nav></app-fixed-nav>
+<!--<div class="float-nav" style="right: 0.15rem; bottom: 70px;">
+  <span (click)="refresh()"><img src="/assets/images/icons/refresh.png"></span>
+  <span (click)="top()"><img src="/assets/images/icons/top.png"></span>
+</div>-->
+
+<weui-mask backdrop="true" #mask>
+  <div *ngIf="customerQrCode" class="qr">
+    <img src="{{config.prefix.wApi + customerQrCode}}">
+  </div>
+</weui-mask>
+
+<weui-mask #qrSite>
+  <div class="qr-site">
+    <img src="/assets/images/qr-site.png">
+    <img class="close" (click)="close()" src="/assets/images/close.png">
+  </div>
+</weui-mask>
+
+<span class="cart-ball" [ngClass]="{'show animated' : cartBallShow}"
+      [ngStyle]="{'left':position.x + 'px','top':position.y + 'px','width':size.w + 'rem','height':size.h + 'rem'}">
+  <img *ngIf="sourceElement?.currentSrc" src="{{sourceElement.currentSrc}}">
+</span>

@@ -1,0 +1,120 @@
+<app-navbar [title]="'商品列表'"></app-navbar>
+<app-tabbar></app-tabbar>
+<div *ngIf="userInfo" class="member">
+  <div class="user-info weui-media-box weui-media-box_appmsg">
+    <div class="weui-media-box__hd">
+      <img class="avatar weui-media-box__thumb" src="{{config.prefix.wApi + userInfo.faceimg}}" alt="">
+    </div>
+    <div class="weui-media-box__bd">
+      <h4 class="weui-media-box__title">{{userInfo.username}}</h4>
+    </div>
+  </div>
+  <weui-navbar>
+    <weui-tab heading="购买记录">
+      <div *ngIf="!userInfo.showrecord" class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+          <h2 class="weui-msg__title">操作失败</h2>
+          <p class="weui-msg__desc">用户禁止查看购买记录</p>
+        </div>
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <a (click)="back();" class="weui-btn weui-btn_default">返回</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="userInfo.showrecord" class="records content">
+        <div class="weui-panel__bd">
+          <div *ngFor="let item of records" class="weui-media-box weui-media-box_appmsg">
+            <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__hd"><img
+              src="{{config.prefix.wApi + item.headimage}}" alt=""></div>
+            <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">(第{{item.productperiod || 1}}期){{item.productname}}</h4>
+              <weui-progress [value]="item.spellbuycount * 100 / item.usercount" [canCancel]="false"></weui-progress>
+              <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta"><em style="font-size: 0.14rem">￥{{item.spellbuyprice}}</em></li>
+                <li class="right weui-media-box__info__meta">
+                  <span><em>已参与{{item.spellbuycount}}</em> / 剩余{{item.usercount - item.spellbuycount}}</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">为保护用户隐私，只展示最新的10条记录</span>
+      </div>
+      <div class="space"></div>
+    </weui-tab>
+    <weui-tab heading="中奖记录">
+      <div *ngIf="!userInfo.showgoods" class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+        <div class="weui-msg__text-area">
+          <h2 class="weui-msg__title">操作失败</h2>
+          <p class="weui-msg__desc">用户禁止查看中奖记录</p>
+        </div>
+        <div class="weui-msg__opr-area">
+          <p class="weui-btn-area">
+            <a (click)="back();" class="weui-btn weui-btn_default">返回</a>
+          </p>
+        </div>
+      </div>
+      <div *ngIf="userInfo.showgoods" class="winners content">
+        <div class="weui-panel__bd">
+          <div *ngFor="let item of winners" class="weui-media-box weui-media-box_appmsg">
+            <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__hd"><img
+              src="{{config.prefix.wApi + item.productimg}}" alt=""></div>
+            <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__bd">
+              <h4 class="weui-media-box__title">(第{{item.productperiod || 1}}期){{item.productname}}</h4>
+              <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta"><em>￥{{item.productprice}}</em></li>
+              </ul>
+              <ul class="weui-media-box__info">
+                <li class="weui-media-box__info__meta">幸运号码：<em>{{item.randomnumber}}</em></li>
+                <li class="right weui-media-box__info__meta">购买用户：<em>{{item.membername.length <= 5 ? item.membername : (item.membername.slice(0,5) + '...')}}</em></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-loadmore weui-loadmore_line">
+        <span class="weui-loadmore__tips">为保护用户隐私，只展示最新的10条记录</span>
+      </div>
+      <div class="space"></div>
+    </weui-tab>
+    <weui-tab heading="晒单记录">
+      <div class="shares">
+        <div *ngIf="shares?.length > 0" class="weui-panel">
+          <div class="weui-panel__bd">
+            <div *ngFor="let item of shares;" class="weui-media-box weui-media-box_appmsg">
+              <!--<div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb"
+                     src="{{config.prefix.wApi + item.faceimg}}"
+                     alt="">
+              </div>-->
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title">第{{item.period}}件已售商品晒单 <span class="right">{{item.sharedate}}</span></h4>
+                <!--<p class="date weui-media-box__desc">{{item.sharedate}}</p>-->
+                <p class="content weui-media-box__desc">{{item.sharecontent}} <a [routerLink]="['/admin/share/item',item.uid]">查看更多></a></p>
+                <div class="images-box">
+                  <div class="images weui-grids">
+                    <div *ngFor="let img of item.shareImageList" class="image weui-grid">
+                      <div class="image-box" [ngStyle]="{'background-image' : 'url(' + config.prefix.wApi + '/UserPost/Big/' + img.images + ')'}"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_link">
+                  <div class="weui-cell__bd"></div>
+                  <div class="weui-cell__ft">
+                    <span><i class="icon-heart"></i> <span>{{item.upcount}}点赞</span></span>
+                    <span><i class="icon-comment"></i> <span>{{item.replycount}}条评论</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="space"></div>
+    </weui-tab>
+  </weui-navbar>
+</div>

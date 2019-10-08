@@ -1,0 +1,32 @@
+<app-navbar [title]="'我的佣金'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<app-infiniteloader *ngIf="records" (loadmore)="onLoadMore($event)" #comp>
+  <app-msg *ngIf="records.list.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div *ngIf="records.list.length > 0" class="content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th class="name">时间</th>
+        <th class="date">账户</th>
+        <th class="money">金额</th>
+        <th class="money">手续费</th>
+        <th class="money">状态</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let record of records.list">
+        <td class="name">{{record.date.split(' ')[0]}}</td>
+        <td class="date">{{record.bankuser}}</td>
+        <td class="money">￥{{record.money}}</td>
+        <td class="money">￥{{record.fee}}</td>
+        <td class="date">{{record.status}}</td>
+        <!--<td class="date">{{item.date.split('.')[0] | repairDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="mobile">{{item.interfacetype}}</td>
+        <td class="rmb">￥{{item.money}}</td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</app-infiniteloader>

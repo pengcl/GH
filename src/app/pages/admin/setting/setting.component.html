@@ -1,0 +1,56 @@
+<app-navbar [title]="'个人设置'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="setting-content content-scrollable has-footer">
+  <div class="weui-cells">
+    <a routerLink="/admin/setting/password" class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">
+        <p>修改密码</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+    <a routerLink="/admin/setting/name" class="weui-cell weui-cell_access">
+      <div class="weui-cell__bd">
+        <p>修改昵称</p>
+      </div>
+      <div class="weui-cell__ft">
+      </div>
+    </a>
+  </div>
+
+  <weui-accordion *ngIf="userInfo" [collapsible]="true" [activeFirst]="userInfo.showRecord || userInfo.showGoods">
+    <weui-accordion-panel class="weui-accordion-panel">
+      <div class="heading" heading>
+        <div class="weui-cells">
+          <a class="weui-cell weui-cell_access" href="javascript:;">
+            <div class="weui-cell__bd">
+              <p>隐私设置</p>
+            </div>
+            <div class="weui-cell__ft">个人主页购买信息是否公开</div>
+          </a>
+        </div>
+      </div>
+      <div class="content">
+        <div class="weui-cells weui-cells_form">
+          <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">购物记录</div>
+            <div class="weui-cell__ft">
+              <input (click)="setShowRecord()" class="weui-switch" type="checkbox" [checked]="userInfo.showRecord">
+            </div>
+          </div>
+          <div class="weui-cell weui-cell_switch">
+            <div class="weui-cell__bd">获得商品</div>
+            <div class="weui-cell__ft">
+              <input (click)="setShowGoods()" class="weui-switch" type="checkbox" [checked]="userInfo.showGoods">
+            </div>
+          </div>
+        </div>
+      </div>
+    </weui-accordion-panel>
+  </weui-accordion>
+
+  <div class="weui-btn-area">
+    <a (click)="logout()" routerLink="/auth/signIn" class="weui-btn weui-btn_primary">退出登录</a>
+  </div>
+</div>

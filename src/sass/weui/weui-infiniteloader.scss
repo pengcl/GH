@@ -1,0 +1,21 @@
+.weui-infiniteloader {
+  overflow: hidden;
+  display: block;
+}
+
+.weui-infiniteloader__content {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+.index, .h-footer {
+  .weui-infiniteloader__content {
+    &:after {
+      content: "";
+      display: block;
+      height: 0.6rem;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<app-navbar [title]="article?.title"></app-navbar>
+
+<div *ngIf="article" class="content-scrollable">
+  <article class="weui-article">
+    <p>
+      <img *ngIf="article.imageUrl" src="{{config.prefix.wApi + article.imageUrl}}">
+    </p>
+    <section>
+      <h2 class="title">{{article.title}}</h2>
+      <p class="date">{{article.postdate}}</p>
+      <section [innerHTML]="article.content"></section>
+    </section>
+  </article>
+</div>

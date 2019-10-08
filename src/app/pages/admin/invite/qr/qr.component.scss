@@ -1,0 +1,127 @@
+.content-scrollable {
+  &.canvas-source {
+    background-image: url("/assets/images/invite/qr-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 115%;
+    background-position: center bottom;
+
+    .text {
+      position: absolute;
+      top: 50%;
+      margin: 1.6rem 0.2rem 0;
+      h2 {
+        font-size: 0.12rem;
+        color: #fff;
+      }
+      ol {
+        font-size: 0.10rem;
+        color: #fff;
+        list-style: decimal;
+        margin-left: 0.14rem;
+        li {
+          list-style: decimal;
+        }
+      }
+    }
+    .qr-content {
+      position: absolute;
+      width: 2.3rem;
+      height: 3.4rem;
+      background-image: linear-gradient(-180deg, #ffcd45 0%, #f6bc1f 100%);
+      left: 50%;
+      margin-left: -1.15rem;
+      top: 50%;
+      margin-top: -2rem;
+      border-radius: 0.1rem;
+
+      .tit {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        font-size: 0.34rem;
+        line-height: 1;
+        top: -0.5rem;
+        color: #ffd88c;
+        font-weight: bold;
+        letter-spacing: 0.02rem;
+        //text-shadow: 0.1rem 0 0.2rem #a21201;
+
+      }
+
+      .hd {
+        position: absolute;
+        width: 114%;
+        margin-left: -7%;
+        top: 0.25rem;
+        text-align: center;
+        background-image: linear-gradient(to bottom, #d60803 0%, #b00400 100%);
+        font-size: 0.17rem;
+        color: #fff;
+        line-height: 0.42rem;
+        border-radius: 0.21rem;
+      }
+
+      .ft {
+        position: absolute;
+        bottom: 0;
+        font-size: 0.12rem;
+        text-align: center;
+        color: #fff;
+        width: 100%;
+        opacity: 0.8;
+        .domain {
+          padding: 0.05rem;
+        }
+        .txt {
+          letter-spacing: 0.01rem;
+          line-height: 1.4;
+          padding: 0.1rem;
+          position: relative;
+          &:before {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            height: 1px;
+            border-top: 1px solid #e5e5e5;
+            color: #e5e5e5;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+            z-index: 2;
+          }
+        }
+        em {
+          font-style: normal;
+          color: #bb0501;
+        }
+      }
+
+      #qrcode {
+        width: 1.7rem;
+        height: 1.7rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -0.85rem;
+        margin-top: -0.85rem;
+        box-sizing: border-box;
+        border: 0.08rem solid #fff;
+        img {
+          display: block;
+          width: 100%;
+
+        }
+      }
+    }
+  }
+
+  &.canvas-dist {
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Test Charts</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="/assets/css/charts.css">
+</head>
+<body>
+<div id="chartsContainer" class="charts-container"></div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="/assets/js/charts.js?gh=12"></script>
+<script>
+
+  var charts = {
+    "need": 7190,
+    "percent": 16.926286509040334,
+    "now": [{"start": 410, "end": 412}, {"start": 1084, "end": 1086}],
+    "list": [{"x": 418, "y": 7131, "c": [7068, 7172]}, {"x": 417, "y": 4997, "c": [4926, 5030]}, {
+      "x": 416,
+      "y": 205,
+      "c": [27, 293]
+    }, {"x": 415, "y": 5094, "c": [5062, 5507]}, {"x": 414, "y": 5029, "c": [4704, 5117]}, {
+      "x": 413,
+      "y": 615,
+      "c": [546, 859]
+    }, {"x": 412, "y": 3980, "c": [3823, 4036]}, {"x": 411, "y": 1394, "c": [1273, 1598]}, {
+      "x": 410,
+      "y": 1766,
+      "c": [1542, 1945]
+    }, {"x": 409, "y": 4506, "c": [4346, 4793]}]
+  };
+
+  // 执行
+  draw(charts, 'chartsContainer'); // charts:数据,chartsContainer:容器id
+  draw(charts, 'chartsContainer'); // charts:数据,chartsContainer:容器id
+  draw(charts, 'chartsContainer'); // charts:数据,chartsContainer:容器id
+  draw(charts, 'chartsContainer'); // charts:数据,chartsContainer:容器id
+</script>
+</body>
+</html>

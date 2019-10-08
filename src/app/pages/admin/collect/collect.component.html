@@ -1,0 +1,67 @@
+<app-navbar [title]="'我的收藏'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="collects content-scrollable">
+  <app-msg *ngIf="goods?.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div *ngIf="goods?.length > 0" class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div *ngFor="let item of goods;" class="weui-media-box weui-media-box_appmsg">
+        <div class="weui-media-box__hd">
+          <img class="weui-media-box__thumb"
+               src="{{config.prefix.wApi + item.headimage}}"
+               alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{item.productname}}</h4>
+          <div class="weui-flex">
+            <div class="price weui-flex__item"><em>￥{{item.productprice}}</em></div>
+            <div class="del weui-flex__item"><em (click)="del($event,item.id)"><i class="icon-trash"></i>
+              <span>删除</span></em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="goods?.length > 0" class="btns-group">
+  <div class="nav-group">
+    <div (click)="showKeyboard()" class="key-border">
+      <div class="key-control weui-flex">
+        <div class="icon weui-flex__item">
+          <img src="/assets/images/icons/keyboard.png">
+        </div>
+        <div class="num weui-flex__item">
+          <em>{{tmpNum}}</em>
+        </div>
+        <div class="text weui-flex__item">
+          次/件
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="keyboardShow" class="animated bounceIn" id="keyboard">
+      <ul>
+        <li (click)="num('1')">1</li>
+        <li (click)="num('2')">2</li>
+        <li (click)="num('3')">3</li>
+        <li (click)="num('4')">4</li>
+        <li (click)="num('5')">5</li>
+        <li (click)="num('6')">6</li>
+        <li (click)="num('7')">7</li>
+        <li (click)="num('8')">8</li>
+        <li (click)="num('9')">9</li>
+        <li (click)="num('0')">0</li>
+        <li (click)="delete()">退格</li>
+        <li (click)="sure()">确定</li>
+        <div (click)="clear()" class="clear"></div>
+      </ul>
+    </div>
+  </div>
+  <a (click)="submit()" class="btn btn-primary">一键加入购物车</a>
+</div>
+
+
+<app-fixed-nav></app-fixed-nav>

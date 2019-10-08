@@ -1,0 +1,48 @@
+<app-navbar [title]="'会员登录'"></app-navbar>
+<div #container class="auth-content content-scrollable">
+  <form novalidate [formGroup]="forgotForm" (submit)="forgot()">
+    <div class="weui-cells weui-cells_form">
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':forgotForm.get('loginid').invalid && isSubmit}">
+        <div class="weui-cell__hd">
+          <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/user.png">
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" formControlName="loginid" placeholder="请输入手机号">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-icon-warn"></span>
+        </div>
+      </div>
+      <div class="weui-cell" [ngClass]="{'weui-cell_warn':forgotForm.get('pwd').invalid && isSubmit}">
+        <div class="weui-cell__hd">
+          <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/lock.png">
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="password" formControlName="pwd" placeholder="请输入密码">
+        </div>
+        <div class="weui-cell__ft">
+          <span class="weui-icon-warn"></span>
+        </div>
+      </div>
+      <div class="valid-code weui-cell"
+           [ngClass]="{'weui-cell_warn':forgotForm.get('validCode').invalid && isSubmit}">
+        <div class="weui-cell__hd">
+          <img style="width:0.14rem;margin-right:0.1rem;display:block" src="/assets/images/icons/code.png">
+        </div>
+        <div class="weui-cell__bd">
+          <input class="weui-input" type="number" formControlName="validCode" placeholder="请输入验证码">
+        </div>
+        <div class="weui-cell__ft" [ngClass]="{'show' : forgotForm.get('loginid').valid}">
+          <span class="weui-icon-warn"></span>
+          <span class="sendValidCode" id="sendValidCode" (click)="sendValidCode()">{{activeText}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-btn-area">
+      <button weui-button [weui-loading]="loading" class="weui-btn weui-btn_primary">重置密码</button>
+    </div>
+  </form>
+</div>
+
+<div id="popup-captcha"></div>

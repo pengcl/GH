@@ -1,0 +1,30 @@
+<app-navbar [title]="'我的佣金'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<app-infiniteloader *ngIf="commissions" (loadmore)="onLoadMore($event)" #comp>
+  <app-msg *ngIf="commissions.list.length === 0" (event)="onCancel($event)"
+           [msg]='{title:"",desc:"您还没有任何记录!~～",cancel:"返回",icon:"/assets/images/icons/empty.png"}'></app-msg>
+  <div *ngIf="commissions.list.length > 0" class="content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+      <tr>
+        <th class="name">消费用户</th>
+        <th class="date">消费日期</th>
+        <th class="money">消费金额</th>
+        <th class="money">佣金</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of commissions.list">
+        <td class="name">{{item.username}}</td>
+        <td class="date">{{item.date | repairDate | date : 'yyyy-MM-dd'}}</td>
+        <td class="money"><i>￥{{item.buymoney}}</i></td>
+        <td class="money"><em>￥{{item.commission}}</em></td>
+        <!--<td class="date">{{item.date.split('.')[0] | repairDate | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="mobile">{{item.interfacetype}}</td>
+        <td class="rmb">￥{{item.money}}</td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</app-infiniteloader>

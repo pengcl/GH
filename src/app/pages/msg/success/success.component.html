@@ -1,0 +1,71 @@
+<app-navbar [title]="'支付成功'"></app-navbar>
+<div class="content-scrollable">
+  <div *ngIf="type === 'cart'" class="weui-msg">
+    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+    <div class="weui-msg__text-area">
+      <h2 class="weui-msg__title">购买成功</h2>
+      <p class="weui-msg__desc"><em>{{config.webHost.replace("http://","")}}</em> 带给您不一样的购物乐趣～</p>
+    </div>
+
+    <div class="weui-panel">
+      <div class="weui-panel__hd" style="text-align: left">购买的商品</div>
+      <div class="weui-panel__bd">
+        <div *ngFor="let order of orders" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="/wApi{{order.headimage}}" alt="">
+            <span *ngIf="order.pk_type === 3" class="flag">
+              <img src="/assets/images/red-flag.png">
+            </span>
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title"><em>(第{{order.productperiod}}期)</em>{{order.productname}}</h4>
+            <p class="weui-media-box__desc">
+              <span *ngIf="order.pk_type === 3">本期拥有 <em>{{order.buycount}}</em> 个元宝 最大元宝为 <em>{{order.max_number}}</em></span>
+              <a routerLink="/admin/trade/list" *ngIf="order.pk_type !== 3">幸运码信息请看购买记录</a>
+            </p>
+            <ul class="weui-media-box__info">
+              <li class="weui-media-box__info__meta">{{order.date}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weui-msg__opr-area">
+      <p class="weui-btn-area">
+        <a routerLink="/admin/trade/list" class="weui-btn weui-btn_primary">查看购买记录</a>
+        <a routerLink="/front/list" class="weui-btn weui-btn_default">返回商品列表</a>
+      </p>
+    </div>
+    <div class="weui-msg__extra-area">
+      <div class="weui-footer">
+        <p class="weui-footer__links">
+          <a href="javascript:void(0);" class="weui-footer__link">{{sysConfig?.saitname}}</a>
+        </p>
+        <p class="weui-footer__text">Copyright © 2008-2018 {{config.webHost}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="type === 'fund'" class="weui-msg">
+    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+    <div class="weui-msg__text-area">
+      <h2 class="weui-msg__title">充值成功</h2>
+      <p class="weui-msg__desc"><em>{{config.webHost.replace("http://","")}}</em> 带给您不一样的购物乐趣～</p>
+    </div>
+    <div class="weui-msg__opr-area">
+      <p class="weui-btn-area">
+        <a routerLink="/admin/flow" class="weui-btn weui-btn_primary">查看充值记录</a>
+        <a routerLink="/front/list" class="weui-btn weui-btn_default">去购物</a>
+      </p>
+    </div>
+    <div class="weui-msg__extra-area">
+      <div class="weui-footer">
+        <p class="weui-footer__links">
+          <a href="javascript:void(0);" class="weui-footer__link">{{sysConfig?.saitname}}</a>
+        </p>
+        <p class="weui-footer__text">Copyright © 2008-2018 {{config.webHost}}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+weui-infiniteloader {
+  padding-bottom: 53px;
+}
+
+.content {
+  background: #F7F7F7;
+  padding-top: 0.5rem;
+  table {
+    background: #fff;
+    width: 100%;
+    font-size: 0.12rem;
+    line-height: 1;
+    padding: 0 0.15rem;
+    thead {
+      border-bottom: 1px solid #ccc;
+      tr {
+        th {
+          font-weight: normal;
+          color: #999;
+          padding: 0.15rem 0;
+          position: relative;
+          &.date {
+            width: 40%;
+          }
+          &.type {
+            width: 20%;
+          }
+          &.mobile {
+            width: 20%;
+          }
+          &.rmb {
+            width: 25%;
+          }
+          &.action {
+            width: 15%;
+          }
+          &:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 1px;
+            border-bottom: 1px solid #CCCCCC;
+            color: #CCCCCC;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+        }
+      }
+    }
+    tbody {
+      padding: 0.075rem 0;
+      tr {
+        td {
+          text-align: center;
+          padding: 0.075rem 0;
+          &.rmb {
+            color: #F26549;
+            &.cancel {
+              color: #09BB07;
+            }
+          }
+        }
+        &:last-child {
+          td {
+            padding: 0.075rem 0 0.15rem;
+          }
+        }
+        &:first-child {
+          td {
+            padding: 0.15rem 0 0.075rem;
+          }
+        }
+      }
+    }
+  }
+}

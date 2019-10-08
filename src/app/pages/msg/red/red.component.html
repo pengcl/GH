@@ -1,0 +1,44 @@
+<app-navbar [title]="'支付成功'"></app-navbar>
+<div *ngIf="type === 'cart'" class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">购买成功</h2>
+    <p class="weui-msg__desc"><em>{{config.webHost.replace("http://","")}}</em> 带给您不一样的购物乐趣～</p>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a routerLink="/admin/trade/list" class="weui-btn weui-btn_primary">查看购买记录</a>
+      <a routerLink="/front/list" class="weui-btn weui-btn_default">返回商品列表</a>
+    </p>
+  </div>
+  <div class="weui-msg__extra-area">
+    <div class="weui-footer">
+      <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">{{sysConfig?.saitname}}</a>
+      </p>
+      <p class="weui-footer__text">Copyright © 2008-2018 {{config.webHost}}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="type === 'fund'" class="weui-msg">
+  <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+  <div class="weui-msg__text-area">
+    <h2 class="weui-msg__title">充值成功</h2>
+    <p class="weui-msg__desc"><em>{{config.webHost.replace("http://","")}}</em> 带给您不一样的购物乐趣～</p>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a routerLink="/admin/flow" class="weui-btn weui-btn_primary">查看充值记录</a>
+      <a routerLink="/front/list" class="weui-btn weui-btn_default">去购物</a>
+    </p>
+  </div>
+  <div class="weui-msg__extra-area">
+    <div class="weui-footer">
+      <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">{{sysConfig?.saitname}}</a>
+      </p>
+      <p class="weui-footer__text">Copyright © 2008-2018 {{config.webHost}}</p>
+    </div>
+  </div>
+</div>

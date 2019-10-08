@@ -1,0 +1,123 @@
+<app-navbar [title]="'购物车'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="carts content-scrollable has-footer">
+  <app-msg *ngIf="goods?.length === 0" (event)="onConfirm($event)"
+           [msg]='{title:"",desc:"<em>" + config.webHost.replace("http://","") + "</em>" + " 带给您不一样的购物乐趣～",confirm:"去逛逛",icon:"/assets/images/icons/empty-cart.png"}'></app-msg>
+  <div *ngIf="goods?.length > 0" class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div *ngFor="let item of goods;" class="weui-media-box weui-media-box_appmsg">
+        <div [routerLink]="['/front/item',item.spellbuyproductid]" class="weui-media-box__hd">
+          <img class="weui-media-box__thumb"
+               src="{{config.prefix.wApi + item.headimage}}"
+               alt="">
+        </div>
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">
+            {{item.productname}}</h4>
+          <div class="weui-cell">
+            <div class="weui-cell__hd">
+              <weui-stepper (change)="onChange(item.spellbuyproductid,$event)"
+                            [(ngModel)]="item.product_num" [step]="1" [min]="1"
+                            [max]="item.surplusprice"></weui-stepper>
+            </div>
+            <div class="weui-cell__bd">剩余{{item.surplusprice}}人次</div>
+            <div (click)="remove(item)" class="weui-cell__ft"><img src="/assets/images/icons/trash.png"></div>
+          </div>
+          <div class="choose-num">
+            <span *ngIf="item.surplusprice >= 20" [ngClass]="{'curr':item.product_num === 20}" (click)="onChange(item.spellbuyproductid,20);item.product_num = 20">20</span>
+            <span *ngIf="item.surplusprice >= 50" [ngClass]="{'curr':item.product_num === 50}" (click)="onChange(item.spellbuyproductid,50);item.product_num = 50">50</span>
+            <span *ngIf="item.surplusprice >= 100" [ngClass]="{'curr':item.product_num === 100}" (click)="onChange(item.spellbuyproductid,100);item.product_num = 100">100</span>
+            <span *ngIf="item.surplusprice >= 200" [ngClass]="{'curr':item.product_num === 200}" (click)="onChange(item.spellbuyproductid,200);item.product_num = 200">200</span>
+            <span *ngIf="item.surplusprice >= 500" [ngClass]="{'curr':item.product_num === 500}" (click)="onChange(item.spellbuyproductid,500);item.product_num = 500">500</span>
+            <span [ngClass]="{'curr':item.product_num === item.surplusprice}" (click)="onChange(item.spellbuyproductid,item.surplusprice);item.product_num = item.surplusprice">包尾</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weui-panel__ft">
+      <div class="weui-cell weui-cell_link">
+        <div class="weui-cell__bd">商品合计</div>
+        <span class="weui-cell__ft"><em>￥{{totalPrice}}</em></span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="goods?.length > 0" class="weui-cells__title">支付方式</div>
+  <div [formGroup]="submitForm" *ngIf="goods?.length > 0" class="pay-types weui-cells weui-cells_radio">
+    <label *ngFor="let payType of payTypes" class="weui-cell weui-check__label">
+      <div class="weui-cell__hd">
+        <img style="width: 0.15rem;margin-right: 0.08rem;display: block" src="{{config.prefix.wApi + payType.icon}}">
+      </div>
+      <div class="weui-cell__bd">
+        <p>{{payType.mchname}} <span *ngIf="payType.balance">(<em>{{payType.paytype === 'balance' ? '￥' : ''}}{{payType.balance}}</em>)</span></p>
+      </div>
+      <div class="weui-cell__ft">
+        <input (click)="setPayType(payType)" formControlName="payType" [checked]="payType.isdefault" [value]="payType.paytype" type="radio" class="weui-check">
+        <span class="weui-icon-checked"></span>
+      </div>
+    </label>
+  </div>
+
+</div>
+
+<div *ngIf="goods?.length > 0" class="btns-group">
+  <div class="nav-group">
+    <div (click)="showKeyboard()" class="key-border">
+      <div class="key-control weui-flex">
+        <div class="icon weui-flex__item">
+          <img src="/assets/images/icons/keyboard_999.png">
+        </div>
+        <div class="num weui-flex__item">
+          <em>{{tmpNum}}</em>
+        </div>
+        <div class="text weui-flex__item">
+          次/件
+        </div>
+      </div>
+    </div>
+    <div (click)="clear()" class="txt">清空</div>
+
+    <div *ngIf="keyboardShow" class="animated bounceIn" id="keyboard">
+      <ul>
+        <li (click)="num('1')">1</li>
+        <li (click)="num('2')">2</li>
+        <li (click)="num('3')">3</li>
+        <li (click)="num('4')">4</li>
+        <li (click)="num('5')">5</li>
+        <li (click)="num('6')">6</li>
+        <li (click)="num('7')">7</li>
+        <li (click)="num('8')">8</li>
+        <li (click)="num('9')">9</li>
+        <li (click)="num('0')">0</li>
+        <li (click)="delete()">退格</li>
+        <li (click)="sure()">确定</li>
+        <div (click)="clear()" class="clear"></div>
+      </ul>
+    </div>
+  </div>
+  <a routerLink="/front/list" class="btn btn-secondary">继续添加</a>
+  <a (click)="submit()" class="btn btn-primary">去结算</a>
+</div>
+
+<form style="display: none;" class="weui-cells weui-cells_form" #customForm action="{{formData?.action}}" method="post">
+  <div *ngFor="let item of formData | keys" class="weui-cell">
+    <div class="weui-cell__bd"><input class="weui-input" name="{{item.key}}" value="{{item.value}}"></div>
+  </div>
+</form>
+
+<weui-mask backdrop="true" #mask>
+  <!--<img *ngIf="qrCodeUrl" [src]="qrCodeUrl">-->
+  <ngx-qrcode
+    *ngIf="showType === 1"
+    [qrc-element-type]="'url'"
+    [qrc-value] = "qrCodeUrl"
+    qrc-class = "'qr'"
+    qrc-errorCorrectionLevel = "L">
+  </ngx-qrcode>
+  <div *ngIf="showType === 7 && payQrCode" class="qr">
+    <img src="{{config.prefix.wApi + payQrCode}}">
+  </div>
+</weui-mask>
+
+<app-fixed-nav></app-fixed-nav>

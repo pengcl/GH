@@ -1,0 +1,25 @@
+.fixed-nav {
+  position: fixed;
+  width: 0.5rem;
+  border: 1px solid transparent;
+  padding: 0.04rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  z-index: 1000;
+  right: 0.15rem;
+  bottom: 0.9rem;
+  span {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.05rem 0;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    display: block;
+    overflow: hidden;
+    img {
+      display: block;
+      width: 0.24rem;
+      margin: 0.08rem;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.index {
+  .banner {
+    background: #fff;
+    .swiper-container {
+      padding-bottom: 0.3rem;
+      .swiper-pagination {
+        bottom: 0.08rem;
+        .swiper-pagination-handle {
+          margin: 0 !important;
+          font-size: 0;
+          line-height: 0;
+        }
+        .swiper-pagination-bullet {
+          width: 0.05rem;
+          height: 0.05rem;
+          background: #DCDCDC;
+          opacity: 1;
+          border: none !important;
+          margin: 0 !important;
+          border-radius: 30%;
+          &.swiper-pagination-bullet-active {
+            width: 0.12rem;
+            background: #F26549;
+          }
+        }
+      }
+    }
+  }
+}

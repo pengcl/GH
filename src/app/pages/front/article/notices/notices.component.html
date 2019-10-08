@@ -1,0 +1,23 @@
+<app-navbar [title]="'系统公告'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div *ngIf="notices" class="content-scrollable has-footer">
+
+  <div *ngFor="let notice of notices;let i = index" [ngClass]="{'curr':notice.id === selected.id}"
+       class="weui-panel weui-panel_access">
+    <div class="weui-panel__bd">
+      <div class="weui-media-box">
+        <div class="weui-media-box__bd">
+          <h4 class="weui-media-box__title">{{notice.content}}</h4>
+          <p class="weui-media-box__desc">{{notice.describes}}</p>
+        </div>
+      </div>
+    </div>
+    <div (click)="onSelected(notice)" class="weui-panel__ft">
+      <a class="weui-cell weui-cell_access weui-cell_link">
+        <div class="weui-cell__bd">查看详情</div>
+        <span class="weui-cell__ft">{{notice.createtime | repairDate | date : 'yyyy-MM-dd HH:mm'}}</span>
+      </a>
+    </div>
+  </div>
+</div>

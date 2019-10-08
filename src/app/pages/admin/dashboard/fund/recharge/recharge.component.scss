@@ -1,0 +1,71 @@
+.account-fund {
+  background: #fff;
+  input::placeholder {
+    color: #DCDCDC;
+  }
+  .status {
+    background-image: linear-gradient(-180deg, #FFB366 0%, #F26549 100%);
+    border-radius: 0.04rem;
+    font-size: 0.15rem;
+    color: #fff;
+    margin: 0.2rem 0.15rem;
+    padding: 0.12rem 0;
+    .weui-cell {
+      padding: 0.1rem 0.15rem;
+      .weui-cell__bd {
+        font-size: 0.12rem;
+      }
+      .weui-cell__ft {
+        color: #fff;
+      }
+    }
+  }
+  .weui-cells__title {
+    font-size: 0.12rem;
+  }
+
+  .weui-cells {
+    font-size: 0.14rem;
+    overflow: visible;
+    &:before {
+      display: none;
+    }
+    &:after {
+      left: 0.15rem;
+      right: 0.15rem;
+    }
+    .weui-cell {
+      padding: 0.15rem 0.2rem;
+      &:before {
+        left: 0.15rem;
+        right: 0.15rem;
+      }
+      .weui-cell__ft {
+        .weui-icon-warn {
+          font-size: 0.2rem;
+        }
+      }
+    }
+  }
+  .weui-cells__tips {
+    font-size: 0.12rem;
+    margin-top: 0.1rem;
+  }
+
+  .weui-btn-area {
+    margin-top: 0.35rem;
+  }
+
+  .phone-list-container {
+    position: relative;
+    .phone-list-content {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      margin-top: 0;
+      z-index: 1003;
+      box-shadow: 0.05rem 0.05rem 0.05rem rgba(0, 0, 0, 0.5);
+      overflow: visible !important;
+    }
+  }
+}

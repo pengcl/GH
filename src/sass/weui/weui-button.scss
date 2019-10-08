@@ -1,0 +1,11 @@
+.weui-btn {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 12px 0;
+  &.weui-btn_primary {
+    background: #F26341;
+    &:active {
+      background: #F16341;
+    }
+  }
+}

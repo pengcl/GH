@@ -1,0 +1,196 @@
+<app-navbar [title]="'迎中秋，打地鼠拿大奖'"></app-navbar>
+<div class="all">
+  <div class="top-bar animated" [ngClass]="{'fadeInDown':topBarShow === true,'fadeOutUp':topBarShow === false}">
+    <div class="weui-flex">
+      <div class="timer-count weui-flex__item">
+        <div class="bg">
+          <img src="/assets/game/mouse/images/timer_bg.png">
+        </div>
+        <div class="percent">
+          <span class="percent_bar" [ngStyle]="{'width':time * 100 / 90 + '%'}"></span>
+        </div>
+      </div>
+      <div class="total weui-flex__item">
+        <span><img src="/assets/game/mouse/images/total_label.png"></span>
+        <span class="total-score" [innerHTML]="scoreForm.get('score').value | picNumber"></span>
+      </div>
+    </div>
+  </div>
+  <a routerLink="/index" class="go-home animated"
+     [ngClass]="{'fadeInRight':topBarShow === false,'fadeOutRight':topBarShow === true}">
+    <img src="/assets/game/mouse/img/exit.png">
+  </a>
+  <!--<div class="total" [ngClass]="{'pulse animated':scoreChanged}">
+    <h1>剩余时间：{{time}} - 总分：<span class="total-score">{{scoreForm.get('score').value}}</span></h1>
+  </div>-->
+
+  <h1 class="game-title animated"
+      [ngClass]="{'bounceIn' : readyTimerShow === true,'bounceOut' : readyTimerShow === false}">
+    <img src="/assets/game/mouse/images/timer-{{readyTime}}.png">
+  </h1>
+
+  <div class="info animated"
+       [ngClass]="{'bounceIn':gameTipsShow === true,'bounceOut':gameTipsShow === false}">
+    <img src="/assets/game/mouse/img/infoBg.png">
+    <div class="game-logo">
+      <img src="/assets/game/mouse/img/logo.png">
+    </div>
+    <div class="info-txt">
+      <h3>游戏规则</h3>
+      <!--<div [innerHTML]="gameRule"></div>-->
+      <div>
+        <p>1、有四种不同地鼠，三种打到分别获得1、2、3积分，一种打到回随机减1-3积分，积分累计排名前<em>100名</em>能获得奖品（<a (click)="showOverlay()">详细说明请看活动规则</a>）。
+        </p>
+        <p>2、为保证公平公正，一旦发现作弊行为，将不得再参与本次活动，活动排名无效。</p>
+        <p>3、本次活动最终解释权归广惠商城所有。</p>
+        <p>4、活动时间：<em>2018年9月5日至2018年9月24日</em></p>
+      </div>
+      <h3>活动奖品</h3>
+      <div>
+        <p>当天玩游戏获得积分，将在次日凌晨转换为福分，<em>100福分等于1元</em>，可用于购买商品。</p>
+        <p>第1名奖励：iPhone X 256G手机一台</p>
+        <p>第2名奖励：Pad mini4 平板电脑一台</p>
+        <p>第3名奖励：科沃斯 扫地机器人</p>
+        <p>第4-10名奖励：九阳榨汁机一台</p>
+        <p>第11-100名奖励：精美礼品一份</p>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="game-over flipInY animated">
+    <img src="/assets/game/mouse/images/game-over.png">
+    <div class="info-txt">
+      <h3>本次游戏得分：</h3>
+      <div class="curr-score">
+        <em>10000</em><sub>分</sub>
+      </div>
+      <div class="score-details">
+        <p><span>您的总分：</span><span class="right"><em>10000</em> <span>分</span></span></p>
+        <p>当前排名：<span class="right"><em>100</em> <span>名</span></span></p>
+      </div>
+      <div (click)="showTop()" class="tops-btn">
+        <img src="/assets/game/mouse/images/top-borad.png">
+      </div>
+    </div>
+  </div>-->
+
+  <div class="game-over animated" [ngClass]="{'flipInY':gameStatusShow === true,'flipOutY':gameStatusShow === false}">
+    <img src="/assets/game/mouse/images/game-over.png">
+    <div class="info-txt">
+      <h3>本次游戏得分：</h3>
+      <div class="curr-score">
+        <div class="weui-flex">
+          <div class="score-container weui-flex__item">
+            <em>{{scoreForm.get('score').value}}</em><sub>分</sub>
+          </div>
+          <div class="share-container weui-flex__item">
+            <span class="bounce animated" (click)="onShare({targetTips:'来分享好友吧',targetContent:'从分享链接注册的用户都将成为您的好友'})"><i
+              class="icons icon-share"></i> 分享本次成绩</span>
+          </div>
+        </div>
+      </div>
+      <div class="score-details">
+        <p><span>您的总分：</span><span class="right"><em>{{scoreForm.get('totalScore').value}}</em> <span>分</span></span>
+        </p>
+        <p>当前排名：<span class="right"><em>{{scoreForm.get('ranking').value}}</em> <span>名</span></span></p>
+      </div>
+      <div (click)="showTop()" class="tops-btn">
+        <img src="/assets/game/mouse/images/top-borad.png">
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="weui-grids">
+      <div *ngFor="let mouse of mouses;let i = index" class="weui-grid">
+        <div class="weui-grid__icon">
+          <img class="animated" [ngClass]="{'fadeOutDown':!mouse.show,'fadeInUp':mouse.show,'beat':mouse.beat}"
+               (click)="beat(mouse,i,$event)" [src]="mouse.img"
+               alt="">
+        </div>
+        <div class="hole">
+          <img src="/assets/game/mouse/images/hole.png">
+        </div>
+        <span class="score" [ngClass]="{'fadeOutUp animated':scores[i].s}">
+          <img *ngIf="scores[i].n" src="/assets/game/mouse/images/score/{{scores[i].n}}.png">
+        </span>
+        <!--<span class="score" [ngClass]="{'fadeOutUp animated':mouse.beat === 1 && mouse.type === 0 && mouse.show}">
+          <img src="/assets/game/mouse/images/score/{{curScore}}.png">
+        </span>-->
+      </div>
+    </div>
+  </div>
+
+  <div (click)="checkStart()" class="start animated"
+       [ngClass]="{'fadeInUp':startBtnShow === true,'fadeOutDown':startBtnShow === false}">
+    <img src="/assets/game/mouse/img/start.png">
+  </div>
+  <div (click)="restart()" class="restart animated"
+       [ngClass]="{'fadeInUp':restartBtnShow === true,'fadeOutDown':restartBtnShow === false}">
+    <img src="/assets/game/mouse/images/restart.png">
+  </div>
+  <div class="glass">
+    <img src="/assets/game/mouse/img/glass.png">
+  </div>
+  <audio id="audio" #audio autoplay="autoplay" preload loop="loop">
+    <source src="/assets/game/mouse/audio/game_music.ogg" type="audio/ogg">
+    <source src="/assets/game/mouse/audio/game_music.mp3" type="audio/mp3">
+  </audio>
+  <img *ngIf="clicked" class="hammer" [ngStyle]="{'left':x + 'px','top':y + 'px'}"
+       [src]="clicked ? '/assets/game/mouse/img/hammer2.png' : '/assets/game/mouse/img/hammer.png'"/>
+
+  <span class="game-num">剩余游戏次数 <em>{{gameNum}}</em></span>
+
+  <span class="share-btn">
+    <img (click)="onDefaultShare({targetTips:'来分享好友吧',targetContent:'从分享链接注册的用户都将成为您的好友'})"
+         src="/assets/game/mouse/img/share.png">
+  </span>
+  <span class="top-btn">
+    <img (click)="showTop()" src="/assets/game/mouse/images/top.png">
+  </span>
+  <span class="audio-btn">
+    <img (click)="play()" src="/assets/game/mouse/images/{{audioPlaying ? 'voice_on.png' : 'voice_off.png'}}">
+  </span>
+
+  <weui-mask #gameTop>
+  <span (click)="showTop()" class="close">
+    <img src="/assets/images/close.png">
+  </span>
+    <div *ngIf="tops" class="game-top animated" [ngClass]="{'flipInY':topShow === true,'flipOutY':topShow === false}">
+      <img src="/assets/game/mouse/images/game-top.png">
+      <div class="info-txt">
+        <ol>
+          <li *ngFor="let top of tops.list;let i = index" [ngClass]="{'me':uid === top.userid}"><b>{{i + 1 + (tops.page
+            - 1) * 10}}.</b>{{top.username}}<span
+            class="right">{{top.totalscore}}</span></li>
+        </ol>
+      </div>
+      <span class="top-me">您当前的排名：<em>{{tops.rank}}</em></span>
+      <span class="page-nav">
+        <span (click)="prev(tops.page,tops.totalPages)" [ngClass]="{'disabled' : tops.page <= 1}"
+              class="prev">上一页</span>
+        <span (click)="next(tops.page,tops.totalPages)" [ngClass]="{'disabled' : tops.page >= tops.totalPages}"
+              class="next">下一页</span></span>
+    </div>
+  </weui-mask>
+
+  <weui-mask #topResult>
+    <span (click)="showTopResult()" class="close">
+      <img src="/assets/images/close.png">
+    </span>
+    <div class="content-scrollable">
+      <div class="img-box">
+        <img src="/assets/game/mouse/top.jpg">
+      </div>
+    </div>
+  </weui-mask>
+
+  <app-overlay>
+    <div class="content-scrollable">
+      <div class="game-rules" [innerHTML]="gameRule"></div>
+    </div>
+    <div class="btns-group">
+      <a (click)="back()" class="btn-twitter">返回</a>
+    </div>
+  </app-overlay>
+</div>

@@ -1,0 +1,89 @@
+body {
+  font-size: 0.14rem;
+  color: #0F0F0F;
+  padding-top: constant(safe-area-inset-top);
+  padding-left: constant(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-bottom: constant(safe-area-inset-bottom);
+}
+
+sub {
+  vertical-align: baseline;
+  font-size: 75%;
+  color: #999;
+}
+
+em {
+  color: #F26549;
+  font-style: normal;
+}
+
+/*a:link {
+  color: #4CA6FF;
+}*/
+
+ul,li {
+  list-style: none;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.right {
+  float: right;
+}
+
+.img-box {
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+#qrcode img {
+  display: block;
+  width: 100%;
+}
+
+.container {
+  position: absolute;
+  top: 15%;
+  height: 85%;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.content-scrollable {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  background: #f8f8f8;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.has-footer {
+  &:after {
+    content: "";
+    display: block;
+    height: 0.6rem;
+  }
+}
+
+.has-nav {
+  padding-top: 0.5rem;
+}
+
+ngx-qrcode {
+  img {
+    display: block;
+    width: 2.5rem;
+  }
+}

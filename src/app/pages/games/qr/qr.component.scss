@@ -1,0 +1,105 @@
+.content-scrollable {
+  &.canvas-source {
+    background-color: #e88702;
+    background-image: url("/assets/game/egg/qr/qr-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+
+    .text {
+      position: absolute;
+      top: 50%;
+      margin: 1.6rem 0.2rem 0;
+      h2 {
+        font-size: 0.12rem;
+        color: #fff;
+      }
+      ol {
+        font-size: 0.10rem;
+        color: #fff;
+        list-style: decimal;
+        margin-left: 0.14rem;
+        li {
+          list-style: decimal;
+        }
+      }
+    }
+    .qr-content {
+      width: 80%;
+      margin: 2.15rem auto 0 auto;
+
+      .tit {
+        text-align: center;
+        font-size: 0.15rem;
+        line-height: 1;
+        color: #fff;
+        em {
+          color: #ffff00;
+        }
+      }
+
+      .product {
+        .product-img {
+          width: 1rem;
+          margin: 0.1rem auto;
+          img {
+            display: block;
+            width: 100%;
+            border-radius: 0.04rem;
+          }
+        }
+        .product-name {
+          font-size: 0.12rem;
+          color: #fff;
+          text-align: center;
+        }
+      }
+
+      .ft {
+        font-size: 0.12rem;
+        text-align: center;
+        color: #fff;
+        width: 100%;
+        opacity: 0.8;
+        span {
+          display: block;
+        }
+        em {
+          display: block;
+          font-size: 0.14rem;
+          color: #fff;
+        }
+      }
+
+      #qrcode {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin: 0.15rem auto 0.1rem auto;
+        box-sizing: border-box;
+        border: 0.05rem solid #fff;
+        img {
+          display: block;
+          width: 100%;
+
+        }
+      }
+    }
+  }
+
+  &.canvas-dist {
+    img {
+      display: block;
+      width: 100%;
+    }
+    .go-home {
+      position: absolute;
+      top: 0.2rem;
+      right: 0.2rem;
+      width: 1rem;
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}

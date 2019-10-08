@@ -1,0 +1,211 @@
+<app-navbar [title]="'邀请好友'"></app-navbar>
+<app-tabbar></app-tabbar>
+
+<div class="invite-content content-scrollable has-footer">
+
+  <div class="banner">
+    <div class="img-box">
+      <img src="/assets/images/invite/banner.png">
+    </div>
+    <div *ngIf="invite" class="inv-status">
+      <div class="status-box">
+        <div class="weui-flex">
+          <div class="weui-flex__item">
+            <em>{{invite.inviteCount}}</em>
+            <span>邀请好友</span>
+          </div>
+          <div routerLink="/admin/commissions" class="weui-flex__item">
+            <em>￥{{userInfo?.commissionbalance}}</em>
+            <span>佣金金额</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns-area">
+    <div class="weui-flex">
+      <div routerLink="/admin/invite/qr" class="code weui-flex__item">
+        二维码分享
+      </div>
+      <div (click)="onShare({targetTips:'来邀请好友吧',targetContent:'从分享链接注册的用户都将成为您的好友'})" class="share weui-flex__item">
+        邀请好友
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <weui-navbar>
+
+      <weui-tab class="invitees" heading="邀请记录">
+
+        <no-record *ngIf="invitees?.length === 0"></no-record>
+
+        <div *ngIf="invitees?.length > 0" class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+            <div class="weui-media-box">
+              <div class="hd weui-flex">
+                <div class="weui-flex__item">用户编号</div>
+                <div class="weui-flex__item">用户名称</div>
+                <div class="weui-flex__item">邀请时间</div>
+                <div class="weui-flex__item">是否消费</div>
+              </div>
+
+              <div *ngFor="let invitee of invitees" class="weui-flex">
+                <div class="weui-flex__item">{{invitee.userid}}</div>
+                <div class="weui-flex__item">{{invitee.username}}</div>
+                <div class="weui-flex__item">{{invitee.olddate.split(' ')[0]}}</div>
+                <div class="weui-flex__item">{{invitee.beinvitebyprice ? '是' : '否'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </weui-tab>
+      <weui-tab heading="账户充值">
+        <div [formGroup]="transferForm" class="weui-tab__box">
+          <div *ngIf="userInfo" class="status weui-flex">
+            <div class="weui-flex__item">
+              <em>￥{{userInfo.balance}}</em>
+              <span>总余额</span>
+            </div>
+            <div routerLink="/admin/commissions" class="weui-flex__item">
+              <!-- commissionbalance? -->
+              <em>￥{{userInfo.commissionbalance}}</em>
+              <span>活动佣金</span>
+            </div>
+            <!--<div class="weui-flex__item">
+              <em>￥{{userInfo.commissionmention}}</em>
+              <span>已提金额</span>
+            </div>-->
+          </div>
+          <!--<div class="weui-cells__tips">为确保您申请的金额能够正确无误的转入您的账户，请填写真实有效的账户信息，以下信息均为必填项！</div>-->
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':transferForm.get('amount').invalid && transferForm.get('amount').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">充值金额</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="amount" class="weui-input" type="number" pattern="[0-9]*">
+              </div>
+            </div>
+          </div>
+          <!--<div class="weui-cells__tips">余额：<em>{{userInfo?.balance}}元</em>，满100元才可以申请提现</div>-->
+
+          <div class="weui-btn-area">
+            <a weui-button (click)="transfer()" [weui-loading]="transferStatus.loading" [weui-type]="'primary'">立即充值</a>
+          </div>
+        </div>
+      </weui-tab>
+
+      <weui-tab heading="提现申请">
+        <div [formGroup]="withdrawalForm" class="weui-tab__box">
+          <div *ngIf="userInfo" class="status weui-flex">
+            <div class="weui-flex__item">
+              <em>￥{{userInfo.balance}}</em>
+              <span>总余额</span>
+            </div>
+            <div routerLink="/admin/commissions" class="weui-flex__item">
+              <em>￥{{userInfo.commissionbalance}}</em>
+              <span>活动佣金</span>
+            </div>
+            <!--<div class="weui-flex__item">
+              <em>￥{{userInfo.commissionmention}}</em>
+              <span>已提金额</span>
+            </div>-->
+          </div>
+          <div class="weui-cells__tips">为确保您申请的金额能够正确无误的转入您的账户，请填写真实有效的账户信息，以下信息均为必填项！</div>
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('money').invalid && withdrawalForm.get('money').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">提现金额</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="money" class="weui-input" type="number" pattern="[0-9]*">
+              </div>
+            </div>
+          </div>
+          <div class="weui-cells__tips">佣金：<em routerLink="/admin/commissions">{{userInfo?.commissionbalance}}元</em>，满100元才可以申请提现</div>
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('bankuser').invalid && withdrawalForm.get('bankuser').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">开户人</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="bankuser" class="weui-input">
+              </div>
+            </div>
+            <div class="mg weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('bankname').invalid && withdrawalForm.get('bankname').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">银行名称</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="bankname" class="weui-input">
+              </div>
+            </div>
+            <div class="mg weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('banksubbranch').invalid && withdrawalForm.get('banksubbranch').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">开户支行</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="banksubbranch" class="weui-input">
+              </div>
+            </div>
+            <div class="mg weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('bankno').invalid && withdrawalForm.get('bankno').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">银行账号</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="bankno" class="weui-input">
+              </div>
+            </div>
+            <div class="weui-cell" [ngClass]="{'weui-cell_warn':withdrawalForm.get('phone').invalid && withdrawalForm.get('phone').dirty}">
+              <div class="weui-cell__hd">
+                <span class="weui-label">联系电话</span>
+              </div>
+              <div class="weui-cell__bd">
+                <input formControlName="phone" class="weui-input">
+              </div>
+            </div>
+          </div>
+          <div class="weui-cells__tips">格式输入138****8888</div>
+
+          <div class="weui-btn-area">
+            <a weui-button (click)="withdrawal()" [weui-loading]="withdrawalStatus.loading" [weui-type]="'primary'">提交申请</a>
+          </div>
+        </div>
+
+      </weui-tab>
+
+      <weui-tab class="records" heading="申请记录">
+
+        <no-record *ngIf="records?.length === 0"></no-record>
+
+        <div *ngIf="records?.length > 0" class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+            <div class="weui-media-box">
+              <div class="hd weui-flex">
+                <div class="weui-flex__item">申请时间</div>
+                <div class="weui-flex__item">账户信息</div>
+                <div class="weui-flex__item">提现金额</div>
+                <div class="weui-flex__item">手续费用</div>
+                <div class="weui-flex__item">有效状态</div>
+              </div>
+
+              <div *ngFor="let record of records" class="weui-flex">
+                <div class="weui-flex__item">{{record.date.split(' ')[0]}}</div>
+                <div class="weui-flex__item">{{record.bankuser}}</div>
+                <div class="weui-flex__item">￥{{record.money}}</div>
+                <div class="weui-flex__item">￥{{record.fee}}</div>
+                <div class="weui-flex__item">{{record.status}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </weui-tab>
+    </weui-navbar>
+  </div>
+</div>
+
+<app-fixed-nav></app-fixed-nav>

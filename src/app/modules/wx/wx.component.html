@@ -1,0 +1,9 @@
+<div class="weui-mask" [ngClass]="{'weui-mask__in': _shown}" (click)="hide()">
+  <div class="weixinShareImg"><img src="/assets/images/weixinShareImg.png">
+    <div class="weixinShareTxt">选择<em> "</em><em class="targetTxt">分享到朋友圈</em><em>" </em>或<em> "</em><em
+      class="targetTxt">发送给朋友</em><em>" </em><span id="targetTips">{{state.targetTips ? state.targetTips : '让更多的朋友来关注我们'}}</span>
+      <p class="targetContent">{{state.targetContent ? state.targetContent : ''}}</p>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,65 @@
+.weui-panel {
+  &:before, &:after {
+    display: none;
+  }
+  .weui-media-box {
+    &:before {
+      display: none;
+    }
+    &.weui-media-box_appmsg {
+      .weui-media-box__hd {
+        height: 0.4rem;
+        width: 0.4rem;
+        line-height: 0.4rem;
+        align-self: start;
+        .weui-media-box__thumb {
+          border-radius: 0.2rem;
+        }
+      }
+      .weui-media-box__bd {
+        .weui-media-box__title {
+          font-size: 0.14rem;
+          line-height: 0.14rem;
+          .right {
+            font-size: 0.12rem;
+            color: #999;
+          }
+        }
+        .weui-media-box__desc {
+          font-size: 0.12rem;
+          margin-top: 0.1rem;
+          span {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0.03rem 0.1rem;
+            line-height: 1;
+            font-size: 0.1rem;
+            margin-right: 0.1rem;
+            background: #F5F5F5;
+            border-radius: 0.04rem;
+          }
+        }
+      }
+    }
+    .weui-media-box__bd {
+      .img-box {
+        margin: 0.15rem 0;
+      }
+    }
+
+    & + .weui-media-box {
+      padding: 0 0.15rem 0.15rem;
+      .weui-media-box__desc {
+        // color: #0F0F0F;
+      }
+    }
+  }
+}
+
+.btns-group {
+  i {
+    font-size: 0.16rem;
+    vertical-align: text-bottom;
+    display: inline-block;
+  }
+}

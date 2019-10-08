@@ -1,0 +1,25 @@
+<div *ngIf="msg" class="weui-msg">
+  <div class="weui-msg__icon-area">
+    <div class="weui-icon_msg">
+      <img [src]="msg.icon ? msg.icon : '/assets/images/icons/form.png'">
+    </div>
+  </div>
+  <div class="weui-msg__text-area">
+    <h2 *ngIf="msg.title" class="weui-msg__title">{{msg.title}}</h2>
+    <p *ngIf="msg.desc" class="weui-msg__desc" [innerHtml]="msg.desc"></p>
+  </div>
+  <div class="weui-msg__opr-area">
+    <p class="weui-btn-area">
+      <a *ngIf="msg.confirm" (click)="confirm()" class="weui-btn weui-btn_primary">{{msg?.confirm}}</a>
+      <a *ngIf="msg.cancel" (click)="cancel()" class="weui-btn {{msg.confirm ? 'weui-btn_default' : 'weui-btn_primary'}}">{{msg?.cancel}}</a>
+    </p>
+  </div>
+  <!--<div class="weui-msg__extra-area">
+    <div class="weui-footer">
+      <p class="weui-footer__links">
+        <a href="javascript:void(0);" class="weui-footer__link">大牛管家</a>
+      </p>
+      <p class="weui-footer__text">Copyright © 2008-2018 danius.cn</p>
+    </div>
+  </div>-->
+</div>

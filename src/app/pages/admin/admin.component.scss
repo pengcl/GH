@@ -1,0 +1,29 @@
+.weui-tab {
+  .weui-navbar {
+    background: #fff;
+    &:after {
+      display: none;
+    }
+    .weui-navbar__item {
+      &:after {
+        height: 2px;
+        width: 4em;
+        left: 50%;
+        margin-left: -2em;
+        top: auto;
+        bottom: 0;
+        transform: scaleX(1);
+        border-right: 0;
+        border-bottom: 2px solid #F26549;
+        display: none;
+      }
+      &.weui-bar__item_on {
+        background: #fff;
+        color: #F26549;
+        &:after {
+          display: block;
+        }
+      }
+    }
+  }
+}
