@@ -42,7 +42,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   @ViewChild('comp') private il;
   @ViewChild('scrollTo') private scrollTo: ElementRef;
   @ViewChild('mask') mask: MaskComponent;
-  @ViewChild('qrSite') qrSite: MaskComponent;
+  /*@ViewChild('qrSite') qrSite: MaskComponent;*/
 
   indexData;
   lotteries;
@@ -98,9 +98,9 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.appKey = this.authSvc.getStorageKey();
 
-    if (this.indexSvc.isQrShow()) {
+    /*if (this.indexSvc.isQrShow()) {
       this.qrSite.show();
-    }
+    }*/
 
     this.indexSvc.getIndex().then(res => {
       this.indexData = res.result;
@@ -367,8 +367,8 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.qrSite.hide();
-    this.storageSvc.set('isQrHidden', true);
+    /*this.qrSite.hide();
+    this.storageSvc.set('isQrHidden', true);*/
   }
 
   ngOnDestroy() {
