@@ -63,7 +63,7 @@ export class WxService extends BaseService {
           return;
         }
 
-        this.http
+        /*this.http
           .get(Config.prefix.wApi + '/interface/call.html?action=getJsSdkAuth&url=' + encodeURIComponent(window.location.href))
           .pipe(
             catchError((error: Response | any) => {
@@ -91,7 +91,7 @@ export class WxService extends BaseService {
             wx.error(() => {
               reject('config 注册失败');
             });
-          });
+          });*/
       });
     });
   }

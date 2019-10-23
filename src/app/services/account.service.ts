@@ -20,6 +20,14 @@ export class AccountService {
       .catch(this.handleError);
   }
 
+  transfer(body): Promise<any> {
+    body = formData(body);
+    return this.http.post(Config.prefix.wApi + '/interface/call.html?action=transferWall', body)
+        .toPromise()
+        .then(response => this.handleExpire(response))
+        .catch(this.handleError);
+  }
+
   getMyRecord(key, page?): Promise<any> {
     return this.http.get(Config.prefix.wApi + '/interface/call.html?action=getMyApplymentionData' + '&key=' + key + '&type=1' + '&page=' + (page || 1))
         .toPromise()
