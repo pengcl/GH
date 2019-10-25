@@ -96,7 +96,7 @@
         <div class="weui-cells__tips">可转移金额：<em>{{userInfo?.walletBalance}}元</em></div>
     </form>
     <div class="weui-btn-area">
-        <a *ngIf="type === 'transfer'" weui-button (click)="transfer()" [weui-loading]="withdrawalStatus.loading" [weui-type]="'primary'">提交申请</a>
+        <a *ngIf="type === 'transfer'" weui-button (click)="transfer()" [weui-loading]="withdrawalStatus.loading" [weui-type]="'primary'">提交</a>
         <a *ngIf="type === 'withdrawal'" weui-button (click)="withdrawal()" [weui-loading]="withdrawalStatus.loading" [weui-type]="'primary'">提交申请</a>
     </div>
 </div>
